@@ -20,13 +20,13 @@ import org.jdesktop.swingbinding.SwingBindings;
  *
  * @author otavi
  */
-public class contratarFuncionario extends javax.swing.JFrame {
+public class contratarFuncionarios extends javax.swing.JInternalFrame {
 
     private List<Funcionario> funcionarios;
     /**
-     * Creates new form contratarFuncionario
+     * Creates new form contratarFuncionarios
      */
-    public contratarFuncionario() {
+    public contratarFuncionarios() {
         initComponents();
         
         funcionarios = new ArrayList<>();
@@ -175,13 +175,6 @@ public class contratarFuncionario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblNome = new javax.swing.JLabel();
-        lblSobrenome = new javax.swing.JLabel();
-        lblCPF = new javax.swing.JLabel();
-        lblCEP = new javax.swing.JLabel();
-        lblEstado = new javax.swing.JLabel();
-        lblLogradouro = new javax.swing.JLabel();
-        lblNumero = new javax.swing.JLabel();
         lblCidade = new javax.swing.JLabel();
         lblBairro = new javax.swing.JLabel();
         lblPais = new javax.swing.JLabel();
@@ -198,25 +191,16 @@ public class contratarFuncionario extends javax.swing.JFrame {
         lblTitulo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         Tabela = new javax.swing.JTable();
+        lblNome = new javax.swing.JLabel();
+        lblSobrenome = new javax.swing.JLabel();
         btnAlterar = new javax.swing.JButton();
+        lblCPF = new javax.swing.JLabel();
         btnAdicionar = new javax.swing.JButton();
+        lblCEP = new javax.swing.JLabel();
+        lblEstado = new javax.swing.JLabel();
         btnExcluir = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        lblNome.setText("Nome:");
-
-        lblSobrenome.setText("Sobrenome:");
-
-        lblCPF.setText("CPF:");
-
-        lblCEP.setText("CEP:");
-
-        lblEstado.setText("Estado:");
-
-        lblLogradouro.setText("Logradouro:");
-
-        lblNumero.setText("Número:");
+        lblLogradouro = new javax.swing.JLabel();
+        lblNumero = new javax.swing.JLabel();
 
         lblCidade.setText("Cidade:");
 
@@ -241,7 +225,13 @@ public class contratarFuncionario extends javax.swing.JFrame {
         Tabela.setToolTipText("Lista de funcionários");
         jScrollPane1.setViewportView(Tabela);
 
+        lblNome.setText("Nome:");
+
+        lblSobrenome.setText("Sobrenome:");
+
         btnAlterar.setText("Alterar");
+
+        lblCPF.setText("CPF:");
 
         btnAdicionar.setText("Adicionar");
         btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
@@ -250,12 +240,20 @@ public class contratarFuncionario extends javax.swing.JFrame {
             }
         });
 
+        lblCEP.setText("CEP:");
+
+        lblEstado.setText("Estado:");
+
         btnExcluir.setText("Excluir");
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExcluirActionPerformed(evt);
             }
         });
+
+        lblLogradouro.setText("Logradouro:");
+
+        lblNumero.setText("Número:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -264,7 +262,7 @@ public class contratarFuncionario extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(44, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 954, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -370,7 +368,7 @@ public class contratarFuncionario extends javax.swing.JFrame {
                     .addComponent(txtPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(43, 43, 43)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnExcluir)
                     .addComponent(btnAlterar)
@@ -393,7 +391,7 @@ public class contratarFuncionario extends javax.swing.JFrame {
                 f.setNumero(Integer.parseInt(txtNumero.getText()));
             }
             catch(NumberFormatException error){
-                f.setNumero(0);   
+                f.setNumero(0);
             }
             f.setBairro(txtBairro.getText());
             f.setCidade(txtCidade.getText());
@@ -435,40 +433,6 @@ public class contratarFuncionario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(contratarFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(contratarFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(contratarFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(contratarFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new contratarFuncionario().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable Tabela;
