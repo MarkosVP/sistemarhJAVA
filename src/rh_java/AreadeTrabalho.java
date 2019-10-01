@@ -16,14 +16,42 @@ import javax.swing.JInternalFrame;
 public class AreadeTrabalho extends JDesktopPane
 {
     private JInternalFrame contFunc;
+    private JInternalFrame criarVaga;
+    private CadastroUsuario cadUsuario;
     
-    public void AbrirContFuncionario()
-    {
+    public void AbrirContFuncionario(){
         if(contFunc == null)
         {
             contFunc = new contratarFuncionarios();
             contFunc.setVisible(true);
             add(contFunc);
         }  
+    }
+    
+    public void FecharContFuncionario(){
+        contFunc=null;
+    }
+    
+    public void abrirCriarVaga(){
+        if(criarVaga==null){
+            criarVaga = new CriarVaga();
+            criarVaga.setVisible(true);
+            add(criarVaga);
+        }
+    }
+    public void fecharCriarVaga(){
+        criarVaga=null;
+    }
+    
+    void AbrirCadastroUsuario(){
+        if(cadUsuario == null){        
+            cadUsuario = new CadastroUsuario();
+            add(cadUsuario);
+            cadUsuario.setVisible(true);
+        }
+    }
+    
+    void FecharCadastroUsuario(){
+        cadUsuario = null;
     }
 }
