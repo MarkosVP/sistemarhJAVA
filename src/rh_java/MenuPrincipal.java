@@ -27,10 +27,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        AreaDeTrabalho = new rh_java.AreadeTrabalho();
+        AreadeTrabalho = new rh_java.AreadeTrabalho();
         mnbBarraMenu = new javax.swing.JMenuBar();
         mnCadastro = new javax.swing.JMenu();
         mnitContratarFunc = new javax.swing.JMenuItem();
+        mnitCadastrarUsuario = new javax.swing.JMenuItem();
+        mnVagas = new javax.swing.JMenu();
+        mnitCadastrarVaga = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -44,7 +47,27 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         mnCadastro.add(mnitContratarFunc);
 
+        mnitCadastrarUsuario.setText("Cadastrar Usuário");
+        mnitCadastrarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnitCadastrarUsuarioActionPerformed(evt);
+            }
+        });
+        mnCadastro.add(mnitCadastrarUsuario);
+
         mnbBarraMenu.add(mnCadastro);
+
+        mnVagas.setText("Vagas");
+
+        mnitCadastrarVaga.setText("Cadastrar Vaga");
+        mnitCadastrarVaga.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnitCadastrarVagaActionPerformed(evt);
+            }
+        });
+        mnVagas.add(mnitCadastrarVaga);
+
+        mnbBarraMenu.add(mnVagas);
 
         setJMenuBar(mnbBarraMenu);
 
@@ -52,11 +75,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(AreaDeTrabalho, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+            .addComponent(AreadeTrabalho, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(AreaDeTrabalho, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(AreadeTrabalho, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE)
         );
 
         pack();
@@ -64,8 +87,18 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void mnitContratarFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnitContratarFuncActionPerformed
         // TODO add your handling code here:
-        AreaDeTrabalho.AbrirContFuncionario();
+        AreadeTrabalho.AbrirContFuncionario();
     }//GEN-LAST:event_mnitContratarFuncActionPerformed
+
+    private void mnitCadastrarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnitCadastrarUsuarioActionPerformed
+        // TODO add your handling code here:
+        AreadeTrabalho.AbrirCadastroUsuario();
+    }//GEN-LAST:event_mnitCadastrarUsuarioActionPerformed
+
+    private void mnitCadastrarVagaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnitCadastrarVagaActionPerformed
+        // TODO add your handling code here:
+        AreadeTrabalho.abrirCriarVaga();
+    }//GEN-LAST:event_mnitCadastrarVagaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -80,9 +113,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private rh_java.AreadeTrabalho AreaDeTrabalho;
+    private rh_java.AreadeTrabalho AreadeTrabalho;
     private javax.swing.JMenu mnCadastro;
+    private javax.swing.JMenu mnVagas;
     private javax.swing.JMenuBar mnbBarraMenu;
+    private javax.swing.JMenuItem mnitCadastrarUsuario;
+    private javax.swing.JMenuItem mnitCadastrarVaga;
     private javax.swing.JMenuItem mnitContratarFunc;
     // End of variables declaration//GEN-END:variables
 }
