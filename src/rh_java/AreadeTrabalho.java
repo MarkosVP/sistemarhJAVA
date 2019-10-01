@@ -18,6 +18,7 @@ public class AreadeTrabalho extends JDesktopPane
     private JInternalFrame contFunc;
     private JInternalFrame criarVaga;
     private CadastroUsuario cadUsuario;
+    private InstituicaoParceira InstPaceira;
     
     public void AbrirContFuncionario(){
         if(contFunc == null)
@@ -54,4 +55,16 @@ public class AreadeTrabalho extends JDesktopPane
     void FecharCadastroUsuario(){
         cadUsuario = null;
     }
+    
+     public void abrirInstituicaoParceira(){
+        if(InstPaceira==null){
+            InstPaceira = new InstituicaoParceira();
+            InstPaceira.setVisible(true);
+            add(InstPaceira);
+        }
+    }
+     
+     public void fecharInstituicaoParceira(){
+         InstPaceira = null;
+     }
 }

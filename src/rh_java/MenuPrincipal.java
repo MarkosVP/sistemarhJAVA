@@ -32,6 +32,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         mnCadastro = new javax.swing.JMenu();
         mnitContratarFunc = new javax.swing.JMenuItem();
         mnitCadastrarUsuario = new javax.swing.JMenuItem();
+        mnitCadInstParceira = new javax.swing.JMenuItem();
         mnVagas = new javax.swing.JMenu();
         mnitCadastrarVaga = new javax.swing.JMenuItem();
 
@@ -54,6 +55,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
         mnCadastro.add(mnitCadastrarUsuario);
+
+        mnitCadInstParceira.setText("Cadastrar Instituição");
+        mnitCadInstParceira.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnitCadInstParceiraActionPerformed(evt);
+            }
+        });
+        mnCadastro.add(mnitCadInstParceira);
 
         mnbBarraMenu.add(mnCadastro);
 
@@ -100,6 +109,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         AreadeTrabalho.abrirCriarVaga();
     }//GEN-LAST:event_mnitCadastrarVagaActionPerformed
 
+    private void mnitCadInstParceiraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnitCadInstParceiraActionPerformed
+        // TODO add your handling code here:
+        AreadeTrabalho.abrirInstituicaoParceira();
+    }//GEN-LAST:event_mnitCadInstParceiraActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -117,6 +131,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu mnCadastro;
     private javax.swing.JMenu mnVagas;
     private javax.swing.JMenuBar mnbBarraMenu;
+    private javax.swing.JMenuItem mnitCadInstParceira;
     private javax.swing.JMenuItem mnitCadastrarUsuario;
     private javax.swing.JMenuItem mnitCadastrarVaga;
     private javax.swing.JMenuItem mnitContratarFunc;
