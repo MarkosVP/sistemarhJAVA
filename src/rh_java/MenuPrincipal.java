@@ -27,69 +27,83 @@ public class MenuPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        dskpMenuPrincipal = new javax.swing.JDesktopPane();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        AreadeTrabalho = new rh_java.AreadeTrabalho();
+        mnbBarraMenu = new javax.swing.JMenuBar();
+        mnCadastro = new javax.swing.JMenu();
+        mnitContratarFunc = new javax.swing.JMenuItem();
+        mnitCadastrarUsuario = new javax.swing.JMenuItem();
+        mnVagas = new javax.swing.JMenu();
+        mnitCadastrarVaga = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout dskpMenuPrincipalLayout = new javax.swing.GroupLayout(dskpMenuPrincipal);
-        dskpMenuPrincipal.setLayout(dskpMenuPrincipalLayout);
-        dskpMenuPrincipalLayout.setHorizontalGroup(
-            dskpMenuPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
-        );
-        dskpMenuPrincipalLayout.setVerticalGroup(
-            dskpMenuPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
+        mnCadastro.setText("Cadastro");
 
-        jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
+        mnitContratarFunc.setText("Contratar Funcionário");
+        mnitContratarFunc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnitContratarFuncActionPerformed(evt);
+            }
+        });
+        mnCadastro.add(mnitContratarFunc);
 
-        setJMenuBar(jMenuBar1);
+        mnitCadastrarUsuario.setText("Cadastrar Usuário");
+        mnitCadastrarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnitCadastrarUsuarioActionPerformed(evt);
+            }
+        });
+        mnCadastro.add(mnitCadastrarUsuario);
+
+        mnbBarraMenu.add(mnCadastro);
+
+        mnVagas.setText("Vagas");
+
+        mnitCadastrarVaga.setText("Cadastrar Vaga");
+        mnitCadastrarVaga.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnitCadastrarVagaActionPerformed(evt);
+            }
+        });
+        mnVagas.add(mnitCadastrarVaga);
+
+        mnbBarraMenu.add(mnVagas);
+
+        setJMenuBar(mnbBarraMenu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(dskpMenuPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(AreadeTrabalho, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(dskpMenuPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(AreadeTrabalho, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void mnitContratarFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnitContratarFuncActionPerformed
+        // TODO add your handling code here:
+        AreadeTrabalho.AbrirContFuncionario();
+    }//GEN-LAST:event_mnitContratarFuncActionPerformed
+
+    private void mnitCadastrarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnitCadastrarUsuarioActionPerformed
+        // TODO add your handling code here:
+        AreadeTrabalho.AbrirCadastroUsuario();
+    }//GEN-LAST:event_mnitCadastrarUsuarioActionPerformed
+
+    private void mnitCadastrarVagaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnitCadastrarVagaActionPerformed
+        // TODO add your handling code here:
+        AreadeTrabalho.abrirCriarVaga();
+    }//GEN-LAST:event_mnitCadastrarVagaActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -99,8 +113,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane dskpMenuPrincipal;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenuBar jMenuBar1;
+    private rh_java.AreadeTrabalho AreadeTrabalho;
+    private javax.swing.JMenu mnCadastro;
+    private javax.swing.JMenu mnVagas;
+    private javax.swing.JMenuBar mnbBarraMenu;
+    private javax.swing.JMenuItem mnitCadastrarUsuario;
+    private javax.swing.JMenuItem mnitCadastrarVaga;
+    private javax.swing.JMenuItem mnitContratarFunc;
     // End of variables declaration//GEN-END:variables
 }
