@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package contratar_funcionario;
+
+package rh_java;
+
 
 import java.util.ArrayList;
 import java.util.List;
