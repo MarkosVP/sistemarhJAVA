@@ -18,10 +18,10 @@ public abstract class  DAO<E> {
     
     public DAO(){
         try{
-            Class.forName("");
-            String url = "jdbc:mysql://localhost/aula?serverTimezone=UTC";
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            String url = "jdbc:mysql://localhost/recursoshumanos?serverTimezone=UTC";
             String user = "root";
-            String pass = "";
+            String pass = "123";
             
             Conn = DriverManager.getConnection(url, user, pass);
         }
