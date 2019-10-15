@@ -5,12 +5,13 @@
  */
 package rh_java;
 
+import static javax.swing.JOptionPane.showMessageDialog;
+
 /**
  *
  * @author marco
  */
 public class MenuPrincipal extends javax.swing.JFrame {
-
     /**
      * Creates new form MenuPrincipal
      */
@@ -119,10 +120,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MenuPrincipal().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new MenuPrincipal().setVisible(true);
         });
     }
 
