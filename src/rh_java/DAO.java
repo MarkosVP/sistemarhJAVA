@@ -14,7 +14,7 @@ public abstract class DAO<E> {
     public abstract boolean inserir(E element);;
     public abstract boolean alterar(E element);
     public abstract boolean excluir(E element);
-    public abstract List<E> lista();
+    public abstract List<E> listar();
     
     public DAO(){
         try{

@@ -9,6 +9,7 @@ package rh_java;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import org.jdesktop.beansbinding.AutoBinding;
 import org.jdesktop.beansbinding.BeanProperty;
 import org.jdesktop.beansbinding.Binding;
@@ -32,6 +33,8 @@ public class contratarFuncionarios extends javax.swing.JInternalFrame {
         initComponents();
         
         funcionarios = new ArrayList<>();
+        FuncionarioDAO funcionarioDao = new FuncionarioDAO();
+        funcionarios = funcionarioDao.listar();
         funcionarios = ObservableCollections.observableList(funcionarios);
         
         BindingGroup bg = new BindingGroup();
@@ -202,6 +205,7 @@ public class contratarFuncionarios extends javax.swing.JInternalFrame {
         btnExcluir = new javax.swing.JButton();
         lblLogradouro = new javax.swing.JLabel();
         lblNumero = new javax.swing.JLabel();
+        btnSalvar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -249,6 +253,11 @@ public class contratarFuncionarios extends javax.swing.JInternalFrame {
         lblSobrenome.setText("Sobrenome:");
 
         btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         lblCPF.setText("CPF:");
 
@@ -274,6 +283,13 @@ public class contratarFuncionarios extends javax.swing.JInternalFrame {
 
         lblNumero.setText("Número:");
 
+        btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -281,11 +297,15 @@ public class contratarFuncionarios extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(btnExcluir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnAlterar)
-                        .addGap(12, 12, 12)
-                        .addComponent(btnAdicionar))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnAdicionar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnSalvar)
+                        .addGap(6, 6, 6))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                             .addGap(164, 164, 164)
@@ -384,7 +404,8 @@ public class contratarFuncionarios extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnExcluir)
                     .addComponent(btnAlterar)
-                    .addComponent(btnAdicionar))
+                    .addComponent(btnAdicionar)
+                    .addComponent(btnSalvar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -411,7 +432,13 @@ public class contratarFuncionarios extends javax.swing.JInternalFrame {
             f.setEstado(txtEstado.getText());
             f.setPais(txtPais.getText());
             funcionarios.add(f);
-            funcionario.inserir(f);
+            /*if(funcionario.inserir(f)){
+                funcionarios.add(f);
+                JOptionPane.showMessageDialog(null, "Funcionário inserido com sucesso!", "Funcionário", JOptionPane.INFORMATION_MESSAGE);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Funcionário não foi inserido!", "Funcionário", JOptionPane.ERROR_MESSAGE);
+            }*/
             txtNome.setText("");
             txtSobrenome.setText("");
             txtCPF.setText("");
@@ -432,6 +459,7 @@ public class contratarFuncionarios extends javax.swing.JInternalFrame {
         if(Tabela.getSelectedRows().length > 0){
             int selecionados = Tabela.getSelectedRows().length;
             for(int i = 0; i < selecionados; i++){
+                System.out.println(Tabela.getValueAt(Tabela.getSelectedRows()[0], 0));
                 funcionarios.remove(Tabela.getSelectedRows()[0]);
             }
             txtNome.setText("");
@@ -455,12 +483,51 @@ public class contratarFuncionarios extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_formInternalFrameClosing
 
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        Funcionario f = new Funcionario();
+        FuncionarioDAO fd = new FuncionarioDAO();
+        f.setNome(txtNome.getText());
+        f.setSobrenome(txtSobrenome.getText());
+        f.setCpf(txtCPF.getText());
+        f.setCep(txtCEP.getText());
+        f.setLogradouro(txtLogradouro.getText());
+        try{
+            f.setNumero(Integer.parseInt(txtNumero.getText()));
+        }
+        catch(NumberFormatException error){
+            f.setNumero(0);
+        }
+        f.setBairro(txtBairro.getText());
+        f.setCidade(txtCidade.getText());
+        f.setEstado(txtEstado.getText());
+        f.setPais(txtPais.getText());
+        if(fd.alterar(f)){
+            JOptionPane.showMessageDialog(null, "Funcionário alterado com sucesso!", "Funcionário", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Funcionário não foi alterado!", "Funcionário", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        FuncionarioDAO fd = new FuncionarioDAO();
+        for(Funcionario f : funcionarios){
+            if(f.getId() == null){        
+                fd.inserir(f);
+            }
+            else{
+                fd.alterar(f);
+            }
+        }
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable Tabela;
     private javax.swing.JButton btnAdicionar;
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnSalvar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBairro;
     private javax.swing.JLabel lblCEP;

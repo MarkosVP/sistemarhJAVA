@@ -56,7 +56,7 @@ public class FuncionarioDAO extends DAO<Funcionario> {
     @Override
     public boolean alterar(Funcionario element) {
         try{
-            String query = "ALTER TABLE funcionarios SET nome = ?, sobrenome = ?, cpf = ?, cep = ?, logradouro = ?, numero = ?, bairro = ?, cidade = ?, estado = ?, pais = ?, ativo = 1 WHERE id_funcionario = ?";
+            String query = "UPDATE funcionarios SET nome = ?, sobrenome = ?, cpf = ?, cep = ?, logradouro = ?, numero = ?, bairro = ?, cidade = ?, estado = ?, pais = ?, ativo = 1 WHERE cpf = ?";
             
             PreparedStatement stmt = Conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             
@@ -70,7 +70,7 @@ public class FuncionarioDAO extends DAO<Funcionario> {
             stmt.setString(8, element.getCidade());
             stmt.setString(9, element.getEstado());
             stmt.setString(10, element.getPais());
-            stmt.setInt(11, element.getId());
+            stmt.setString(11, element.getCpf());
             
             int linha = stmt.executeUpdate();
             
@@ -92,17 +92,17 @@ public class FuncionarioDAO extends DAO<Funcionario> {
     }
 
     @Override
-    public List<Funcionario> lista() {
+    public List<Funcionario> listar() {
         List<Funcionario> listaFuncionario = new ArrayList<>();
         listaFuncionario = ObservableCollections.observableList(listaFuncionario);
         
-        String sql = "SELECT * from funcionarios;";
+        String sql = "SELECT * from funcionarios WHERE ativo = 1;";
         try{
             Statement stmt = Conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next()){
                 Funcionario f = new Funcionario();
-                f.setId(rs.getInt("id"));
+                f.setId(rs.getInt("id_funcionario"));
                 f.setNome(rs.getString("nome"));
                 f.setSobrenome(rs.getString("sobrenome"));
                 f.setCpf(rs.getString("cpf"));
@@ -122,16 +122,17 @@ public class FuncionarioDAO extends DAO<Funcionario> {
         return listaFuncionario;
     }
     
-    public static void main(String args[]){
+    /*public static void main(String args[]){
         Funcionario f = new Funcionario();
         FuncionarioDAO fd = new FuncionarioDAO();
+        f.setId(2);
+        f.setNome("Otavio");
+        f.setSobrenome("romualdo");
+        f.setCpf("98745632112");
         
-        f.setNome("Otávio");
-        f.setSobrenome("Barbosa");
-        f.setCpf("12345678912");
-        
-        fd.inserir(f);
-        
-    }
+        //fd.alterar(f);
+        List<Funcionario> lista = fd.lista();
+        System.out.println(lista);
+    }*/
     
 }
