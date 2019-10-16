@@ -414,7 +414,7 @@ public class contratarFuncionarios extends javax.swing.JInternalFrame {
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
         Funcionario f = new Funcionario();
-        FuncionarioDAO funcionario = new FuncionarioDAO();
+  
         if(Tabela.getSelectedRows().length == 0){
             f.setNome(txtNome.getText());
             f.setSobrenome(txtSobrenome.getText());
@@ -456,10 +456,11 @@ public class contratarFuncionarios extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        FuncionarioDAO fd = new FuncionarioDAO();
         if(Tabela.getSelectedRows().length > 0){
             int selecionados = Tabela.getSelectedRows().length;
             for(int i = 0; i < selecionados; i++){
-                System.out.println(Tabela.getValueAt(Tabela.getSelectedRows()[0], 0));
+                fd.excluir(funcionarios.get(Tabela.getSelectedRows()[0]));
                 funcionarios.remove(Tabela.getSelectedRows()[0]);
             }
             txtNome.setText("");
@@ -486,21 +487,7 @@ public class contratarFuncionarios extends javax.swing.JInternalFrame {
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         Funcionario f = new Funcionario();
         FuncionarioDAO fd = new FuncionarioDAO();
-        f.setNome(txtNome.getText());
-        f.setSobrenome(txtSobrenome.getText());
-        f.setCpf(txtCPF.getText());
-        f.setCep(txtCEP.getText());
-        f.setLogradouro(txtLogradouro.getText());
-        try{
-            f.setNumero(Integer.parseInt(txtNumero.getText()));
-        }
-        catch(NumberFormatException error){
-            f.setNumero(0);
-        }
-        f.setBairro(txtBairro.getText());
-        f.setCidade(txtCidade.getText());
-        f.setEstado(txtEstado.getText());
-        f.setPais(txtPais.getText());
+        f = funcionarios.get(Tabela.getSelectedRows()[0]);
         if(fd.alterar(f)){
             JOptionPane.showMessageDialog(null, "Funcionário alterado com sucesso!", "Funcionário", JOptionPane.INFORMATION_MESSAGE);
         }

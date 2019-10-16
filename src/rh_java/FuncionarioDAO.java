@@ -56,7 +56,7 @@ public class FuncionarioDAO extends DAO<Funcionario> {
     @Override
     public boolean alterar(Funcionario element) {
         try{
-            String query = "UPDATE funcionarios SET nome = ?, sobrenome = ?, cpf = ?, cep = ?, logradouro = ?, numero = ?, bairro = ?, cidade = ?, estado = ?, pais = ?, ativo = 1 WHERE cpf = ?";
+            String query = "UPDATE funcionarios SET nome = ?, sobrenome = ?, cpf = ?, cep = ?, logradouro = ?, numero = ?, bairro = ?, cidade = ?, estado = ?, pais = ?, ativo = 1 WHERE id_funcionario = ?";
             
             PreparedStatement stmt = Conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             
@@ -70,7 +70,7 @@ public class FuncionarioDAO extends DAO<Funcionario> {
             stmt.setString(8, element.getCidade());
             stmt.setString(9, element.getEstado());
             stmt.setString(10, element.getPais());
-            stmt.setString(11, element.getCpf());
+            stmt.setInt(11, element.getId());
             
             int linha = stmt.executeUpdate();
             
@@ -88,7 +88,25 @@ public class FuncionarioDAO extends DAO<Funcionario> {
 
     @Override
     public boolean excluir(Funcionario element) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try{
+            String query = "UPDATE funcionarios SET ativo = 0 WHERE id_funcionario = ?";
+            
+            PreparedStatement stmt = Conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            
+            stmt.setInt(1, element.getId());
+            
+            int linha = stmt.executeUpdate();
+            
+            if(linha == 1) {
+                ResultSet rs = stmt.getGeneratedKeys();
+                rs.next();
+                return true;
+            }
+            
+        }catch(SQLException e){
+            System.out.println("Erro ao excluir: "+ e.getMessage());
+        }
+        return false;
     }
 
     @Override
