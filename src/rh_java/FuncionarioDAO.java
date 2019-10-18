@@ -140,6 +140,82 @@ public class FuncionarioDAO extends DAO<Funcionario> {
         return listaFuncionario;
     }
     
+    public boolean buscar(Funcionario element) {
+        try{
+            String query = "SELECT * FROM funcionarios WHERE cpf = ?";
+            
+            PreparedStatement stmt = Conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            
+            stmt.setString(1, element.getCpf());
+            
+            //int linha = stmt.execute();
+            
+            if(stmt.execute()) {
+                //ResultSet rs = stmt.getGeneratedKeys();
+                //rs.next();
+                return true;
+            }
+            
+        }catch(SQLException e){
+            System.out.println("Erro ao buscar: "+ e.getMessage());
+        }
+        return false;
+    }
+    
+    public boolean ativar(String cpf) {
+        try{
+            String query = "UPDATE funcionarios SET ativo = 1 WHERE cpf = ?";
+            
+            PreparedStatement stmt = Conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            
+            stmt.setString(1, cpf);
+            
+            int linha = stmt.executeUpdate();
+            
+            if(linha == 1) {
+                ResultSet rs = stmt.getGeneratedKeys();
+                rs.next();
+                return true;
+            }
+            
+        }catch(SQLException e){
+            System.out.println("Erro ao ativar: "+ e.getMessage());
+        }
+        return false;
+    }
+    
+    public Funcionario ativo(String cpf) {
+        Funcionario f = new Funcionario();
+        try{
+            String query = "SELECT * FROM funcionarios WHERE cpf = ?";
+            
+            PreparedStatement stmt = Conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            
+            stmt.setString(1, cpf);
+            
+            ResultSet result = stmt.executeQuery();
+            if(result.next()){
+                f.setId(result.getInt("id_funcionario"));
+                f.setNome(result.getString("nome"));
+                f.setSobrenome(result.getString("sobrenome"));
+                f.setCpf(result.getString("cpf"));
+                f.setCep(result.getString("cep"));
+                f.setLogradouro(result.getString("logradouro"));
+                f.setNumero(result.getInt("numero"));
+                f.setBairro(result.getString("bairro"));
+                f.setCidade(result.getString("cidade"));
+                f.setEstado(result.getString("estado"));
+                f.setPais(result.getString("pais"));
+            }
+            return f;
+            
+        }catch(SQLException e){
+            System.out.println("Erro ao ativar: "+ e.getMessage());
+        }
+        
+        return f;
+    }
+    
     /*public static void main(String args[]){
         Funcionario f = new Funcionario();
         FuncionarioDAO fd = new FuncionarioDAO();

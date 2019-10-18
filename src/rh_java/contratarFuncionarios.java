@@ -460,7 +460,9 @@ public class contratarFuncionarios extends javax.swing.JInternalFrame {
         if(Tabela.getSelectedRows().length > 0){
             int selecionados = Tabela.getSelectedRows().length;
             for(int i = 0; i < selecionados; i++){
-                fd.excluir(funcionarios.get(Tabela.getSelectedRows()[0]));
+                if(fd.buscar(funcionarios.get(Tabela.getSelectedRows()[0]))){
+                    fd.excluir(funcionarios.get(Tabela.getSelectedRows()[0]));
+                }
                 funcionarios.remove(Tabela.getSelectedRows()[0]);
             }
             txtNome.setText("");
@@ -499,8 +501,17 @@ public class contratarFuncionarios extends javax.swing.JInternalFrame {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         FuncionarioDAO fd = new FuncionarioDAO();
         for(Funcionario f : funcionarios){
-            if(f.getId() == null){        
-                fd.inserir(f);
+            if(f.getId() == null){ 
+                if(fd.buscar(f)){
+                    JOptionPane.showMessageDialog(null, "CPF já existente, funcionário será ativo novamente", "Funcionário", JOptionPane.INFORMATION_MESSAGE);
+                    fd.ativar(f.getCpf());
+                    funcionarios.remove(funcionarios.indexOf(f));
+                    f = fd.ativo(f.getCpf());
+                    funcionarios.add(f);
+                }
+                else{                  
+                    fd.inserir(f);
+                }
             }
             else{
                 fd.alterar(f);
