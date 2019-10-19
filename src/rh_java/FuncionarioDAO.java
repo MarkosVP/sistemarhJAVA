@@ -148,17 +148,16 @@ public class FuncionarioDAO extends DAO<Funcionario> {
             
             stmt.setString(1, element.getCpf());
             
-            //int linha = stmt.execute();
-            
-            if(stmt.execute()) {
-                //ResultSet rs = stmt.getGeneratedKeys();
-                //rs.next();
+            ResultSet result = stmt.executeQuery();
+            if(result.next()){
                 return true;
             }
+            return false;
             
         }catch(SQLException e){
-            System.out.println("Erro ao buscar: "+ e.getMessage());
+            System.out.println("Erro ao ativar: "+ e.getMessage());
         }
+        
         return false;
     }
     
