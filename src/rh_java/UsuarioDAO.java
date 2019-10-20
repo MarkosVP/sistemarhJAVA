@@ -42,7 +42,6 @@ public class UsuarioDAO extends DAO<Usuario>{
     public boolean apagar(Usuario element) {
         String comando = "DELETE FROM usuario WHERE id_usuario = ?";
        try{
-            System.out.println("APAGARRRRRR");
             PreparedStatement stmt = conn.prepareStatement(comando);
             
             stmt.setInt(1, element.getId());
@@ -73,6 +72,7 @@ public class UsuarioDAO extends DAO<Usuario>{
             int linhas = stmt.executeUpdate();
             if (linhas > 0) {
                 System.out.println("Atualizado!");
+                
             }
             
             //JOptionPane.showMessageDialog(null, "Alterado com sucesso!\n");

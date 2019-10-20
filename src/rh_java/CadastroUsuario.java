@@ -345,19 +345,11 @@ public class CadastroUsuario extends javax.swing.JInternalFrame {
       
                 UsuarioDAO ud = new UsuarioDAO();
 
-        if(tbResult.getSelectedRows().length > 0){
-            System.out.println("BOTAO");
-           
+        if(tbResult.getSelectedRows().length > 0){    
             int selecionados = tbResult.getSelectedRows().length;
-            System.out.println("");
             
             for(int i = 0; i < selecionados; i++){
-                
-                System.out.println("DENTRO DO FOR 1");
-                
                  for(Usuario user: lstUsuarios){
-                     System.out.println("lista " + lstUsuarios.size() + "user " + user.getEmailUsuario());
-                   System.out.println("DENTRO DO FOR 2" + user.getId());
                     if(user.getId()!=null){
                         ud.apagar(user);
                 }
@@ -372,6 +364,7 @@ public class CadastroUsuario extends javax.swing.JInternalFrame {
             lblCpf.setText("");
             lblEmail.setText("");
             lblPhone.setText(""); 
+            lblPassword.setText("");
         }
         
         
@@ -426,15 +419,19 @@ public class CadastroUsuario extends javax.swing.JInternalFrame {
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         
+        if(tbResult.getRowCount()==0){
+            JOptionPane.showMessageDialog(null, "Não há dados a serem inseridos!\n");
+        }else{
             UsuarioDAO cd = new UsuarioDAO();
             
             for(Usuario user: lstUsuarios){
                 if(user.getId()==null)
                     cd.inserir(user);
                 else
-                    cd.alterar(user);
+                    cd.alterar(user);                   
             }
-            JOptionPane.showMessageDialog(null, "Usuarios inseridos com sucesso!\n");
+            JOptionPane.showMessageDialog(null, "Usuarios inseridos/Alterados com sucesso!\n");
+        }
     }//GEN-LAST:event_btSalvarActionPerformed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
