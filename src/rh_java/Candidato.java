@@ -15,8 +15,9 @@ public class Candidato {
     private String estado;
     private String cep;
     private String logradouro;
-    private String numero;
+    private int numero;
     private String bairro;
+    private int id;
     public static String PROP_NOME = "nome";
     public static String PROP_SOBRENOME = "sobrenome";
     public static String PROP_CPF = "cpf";
@@ -37,8 +38,9 @@ public class Candidato {
     public String getLogradouro() {return logradouro;}
     public String getCep() {return cep;}
     public String getCidade() {return cidade;}
-    public String getNumero() {return numero;}
+    public int getNumero() {return numero;}
     public String getBairro() {return bairro;}
+    public int getID() {return id;}
 
     //Setters
     public void setCidade(String cidade) {this.cidade = cidade;}
@@ -49,7 +51,8 @@ public class Candidato {
     public void setPais(String pais) {this.pais = pais;}
     public void setCep(String cep) {this.cep = cep;}
     public void setLogradouro(String logradouro) {this.logradouro = logradouro;}
-    public void setNumero(String numero) {this.numero = numero;}
+    public void setNumero(int numero) {this.numero = numero;}
     public void setBairro(String bairro) {this.bairro = bairro;}
+    public void setId(int id) {this.id = id;}
     
 }
