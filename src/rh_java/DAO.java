@@ -27,6 +27,7 @@ public abstract class DAO<E> {
             Class.forName("com.mysql.cj.jdbc.Driver");
             
             String url = "jdbc:mysql://127.0.0.1:3306/jacto?serverTimezone=UTC";
+
             String user = "root";
             String passwd = "";
             
@@ -39,4 +40,5 @@ public abstract class DAO<E> {
                     e.getMessage());
         }
     }
+
 }

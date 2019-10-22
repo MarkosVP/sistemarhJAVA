@@ -87,12 +87,20 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
+<<<<<<< HEAD
+          <Component id="AreadeTrabalho" alignment="0" pref="1500" max="32767" attributes="0"/>
+=======
           <Component id="AreadeTrabalho" alignment="0" pref="593" max="32767" attributes="0"/>
+>>>>>>> 9550af54ce9b164f9d6f457a8ce0fe93718cd053
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
+<<<<<<< HEAD
+          <Component id="AreadeTrabalho" alignment="1" pref="900" max="32767" attributes="0"/>
+=======
           <Component id="AreadeTrabalho" alignment="0" pref="378" max="32767" attributes="0"/>
+>>>>>>> 9550af54ce9b164f9d6f457a8ce0fe93718cd053
       </Group>
     </DimensionLayout>
   </Layout>
