@@ -461,7 +461,7 @@ public class contratarFuncionarios extends javax.swing.JInternalFrame {
             int selecionados = Tabela.getSelectedRows().length;
             for(int i = 0; i < selecionados; i++){
                 if(fd.buscar(funcionarios.get(Tabela.getSelectedRows()[0]))){
-                    fd.excluir(funcionarios.get(Tabela.getSelectedRows()[0]));
+                    fd.apagar(funcionarios.get(Tabela.getSelectedRows()[0]));
                 }
                 funcionarios.remove(Tabela.getSelectedRows()[0]);
             }

@@ -24,7 +24,7 @@ public class FuncionarioDAO extends DAO<Funcionario> {
        try{
             String query = "INSERT INTO funcionarios(nome, sobrenome, cpf, cep, logradouro, numero, bairro, cidade, estado, pais, ativo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             
-            PreparedStatement stmt = Conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             
             stmt.setString(1, element.getNome());
             stmt.setString(2, element.getSobrenome());
@@ -58,7 +58,7 @@ public class FuncionarioDAO extends DAO<Funcionario> {
         try{
             String query = "UPDATE funcionarios SET nome = ?, sobrenome = ?, cpf = ?, cep = ?, logradouro = ?, numero = ?, bairro = ?, cidade = ?, estado = ?, pais = ?, ativo = 1 WHERE id_funcionario = ?";
             
-            PreparedStatement stmt = Conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             
             stmt.setString(1, element.getNome());
             stmt.setString(2, element.getSobrenome());
@@ -87,11 +87,11 @@ public class FuncionarioDAO extends DAO<Funcionario> {
     }
 
     @Override
-    public boolean excluir(Funcionario element) {
+    public boolean apagar(Funcionario element) {
         try{
             String query = "UPDATE funcionarios SET ativo = 0 WHERE id_funcionario = ?";
             
-            PreparedStatement stmt = Conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             
             stmt.setInt(1, element.getId());
             
@@ -116,7 +116,7 @@ public class FuncionarioDAO extends DAO<Funcionario> {
         
         String sql = "SELECT * from funcionarios WHERE ativo = 1;";
         try{
-            Statement stmt = Conn.createStatement();
+            Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next()){
                 Funcionario f = new Funcionario();
@@ -144,7 +144,7 @@ public class FuncionarioDAO extends DAO<Funcionario> {
         try{
             String query = "SELECT * FROM funcionarios WHERE cpf = ?";
             
-            PreparedStatement stmt = Conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             
             stmt.setString(1, element.getCpf());
             
@@ -165,7 +165,7 @@ public class FuncionarioDAO extends DAO<Funcionario> {
         try{
             String query = "UPDATE funcionarios SET ativo = 1 WHERE cpf = ?";
             
-            PreparedStatement stmt = Conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             
             stmt.setString(1, cpf);
             
@@ -188,7 +188,7 @@ public class FuncionarioDAO extends DAO<Funcionario> {
         try{
             String query = "SELECT * FROM funcionarios WHERE cpf = ?";
             
-            PreparedStatement stmt = Conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             
             stmt.setString(1, cpf);
             

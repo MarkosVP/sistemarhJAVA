@@ -1,5 +1,7 @@
 /*
- * Arquivo que gera a Conexão com o Banco de Dados
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package rh_java;
 
@@ -8,29 +10,34 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ *
+ * @author Laboratorio
+ */
 public abstract class DAO<E> {
-    protected Connection Conn;
-    
-    public abstract boolean inserir(E element);;
+    protected Connection conn;
+
+    public abstract boolean inserir(E element);
+    public abstract boolean apagar(E element);
     public abstract boolean alterar(E element);
-    public abstract boolean excluir(E element);
     public abstract List<E> listar();
-    
+
     public DAO(){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            String url = "jdbc:mysql://localhost/aula?serverTimezone=UTC";
+            
+            String url = "jdbc:mysql://127.0.0.1:3306/jacto?serverTimezone=UTC";
+
             String user = "root";
-            String pass = "";
+            String passwd = "";
             
-            Conn = DriverManager.getConnection(url, user, pass);
-            
-        }
-        catch(ClassNotFoundException e){
-            System.out.printf("Erro no drive");
-        }
-        catch(SQLException e){
-            System.out.printf("Erro na Conexão com o Banco!");
+            conn = DriverManager.getConnection(url, user, passwd);
+        }catch(ClassNotFoundException e){
+            System.out.printf("Erro no driver: %s\n",
+                    e.getMessage());
+        }catch(SQLException e){
+            System.out.printf("Erro no banco: %s\n",
+                    e.getMessage());
         }
     }
 
