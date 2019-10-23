@@ -14,8 +14,8 @@ import org.jdesktop.beansbinding.Binding;
 import org.jdesktop.beansbinding.BindingGroup;
 import org.jdesktop.beansbinding.Bindings;
 import org.jdesktop.observablecollections.ObservableCollections;
+import org.jdesktop.swingbinding.JComboBoxBinding;
 import org.jdesktop.swingbinding.JTableBinding;
-import org.jdesktop.swingbinding.JTableBinding.ColumnBinding;
 import org.jdesktop.swingbinding.SwingBindings;
 
 /**
@@ -25,13 +25,21 @@ import org.jdesktop.swingbinding.SwingBindings;
 public class CriarVaga extends javax.swing.JInternalFrame {
     
     private List<Vaga> lstVagas;
+    private List<Requisito> lstRequisitos;
     /**
      * Creates new form CriarVaga
      */
     public CriarVaga() {
-        lstVagas = new ArrayList<>();
-        lstVagas = ObservableCollections.observableList(lstVagas);
+        /* lstVagas = new ArrayList<>();
+        lstVagas = ObservableCollections.observableList(lstVagas);*/
         
+        lstRequisitos = new ArrayList<>();
+        lstRequisitos = ObservableCollections.observableList(lstRequisitos);
+        lstRequisitos.add(new Requisito("teste"));
+        
+        CriarVagaDAO cv = new CriarVagaDAO();
+        lstVagas = cv.listar();
+            
         initComponents();
         
         BindingGroup bg = new BindingGroup();
@@ -44,7 +52,7 @@ public class CriarVaga extends javax.swing.JInternalFrame {
         cb = tb.addColumnBinding(BeanProperty.create("substituicao"));
         cb.setColumnName("Substituicao");
         
-        cb = tb.addColumnBinding(BeanProperty.create("extra_orcamento"));
+        cb = tb.addColumnBinding(BeanProperty.create("extraOrcamento"));
         cb.setColumnName("Extra Orcamento");
         
         cb = tb.addColumnBinding(BeanProperty.create("aumentoQuadro"));
@@ -73,41 +81,47 @@ public class CriarVaga extends javax.swing.JInternalFrame {
         
         
         bg.addBinding(tb);
+
+        //JComboBoxBinding cbb = SwingBindings.createJComboBoxBinding(AutoBinding.UpdateStrategy.READ_WRITE, lstRequisitos, cbxSubstituicao);
         
-        Binding b = Bindings.createAutoBinding(
-                AutoBinding.UpdateStrategy.READ_WRITE,
-                tbVagas, BeanProperty.create("selectedElement.substituicao"),
-                txtSubstituicao, BeanProperty.create("text"));
+        //bg.addBinding(cbb);
+        
+        Binding b = Bindings.createAutoBinding(AutoBinding.UpdateStrategy.READ_WRITE, 
+                cbxSubstituicao, BeanProperty.create("selectedItem"),
+                tbVagas, BeanProperty.create("selectedElement.substituicao")
+                );
         bg.addBinding(b);
         
-        b = Bindings.createAutoBinding(
-                AutoBinding.UpdateStrategy.READ_WRITE,
-                tbVagas, BeanProperty.create("selectedElement.extra_orcamento"),
-                txtExtraOrcamento, BeanProperty.create("text"));
+        b = Bindings.createAutoBinding(AutoBinding.UpdateStrategy.READ_WRITE, 
+                cbxExtraOrcamento, BeanProperty.create("selectedItem"),
+                tbVagas, BeanProperty.create("selectedElement.extraOrcamento")
+                );
         bg.addBinding(b);
         
-        b = Bindings.createAutoBinding(
-                AutoBinding.UpdateStrategy.READ_WRITE,
-                tbVagas, BeanProperty.create("selectedElement.aumentoQuadro"),
-                txtAumentoQuadro, BeanProperty.create("text"));
+        b = Bindings.createAutoBinding(AutoBinding.UpdateStrategy.READ_WRITE, 
+                cbxAumentoQuadro, BeanProperty.create("selectedItem"),
+                tbVagas, BeanProperty.create("selectedElement.aumentoQuadro")
+                );
+        bg.addBinding(b);
+                
+        
+        b = Bindings.createAutoBinding(AutoBinding.UpdateStrategy.READ_WRITE, 
+                cbxSexo, BeanProperty.create("selectedItem"),
+                tbVagas, BeanProperty.create("selectedElement.sexo")
+                );
+        bg.addBinding(b);
+                
+        
+        b = Bindings.createAutoBinding(AutoBinding.UpdateStrategy.READ_WRITE, 
+                cbxInternet, BeanProperty.create("selectedItem"),
+                tbVagas, BeanProperty.create("selectedElement.internet")
+                );
         bg.addBinding(b);
         
-        b = Bindings.createAutoBinding(
-                AutoBinding.UpdateStrategy.READ_WRITE,
-                tbVagas, BeanProperty.create("selectedElement.sexo"),
-                txtSexo, BeanProperty.create("text"));
-        bg.addBinding(b);
-        
-        b = Bindings.createAutoBinding(
-                AutoBinding.UpdateStrategy.READ_WRITE,
-                tbVagas, BeanProperty.create("selectedElement.internet"),
-                txtInternet, BeanProperty.create("text"));
-        bg.addBinding(b);
-        
-        b = Bindings.createAutoBinding(
-                AutoBinding.UpdateStrategy.READ_WRITE,
-                tbVagas, BeanProperty.create("selectedElement.motorista"),
-                txtMotorista, BeanProperty.create("text"));
+        b = Bindings.createAutoBinding(AutoBinding.UpdateStrategy.READ_WRITE, 
+                cbxMotorista, BeanProperty.create("selectedItem"),
+                tbVagas, BeanProperty.create("selectedElement.motorista")
+                );
         bg.addBinding(b);
         
          b = Bindings.createAutoBinding(
@@ -141,6 +155,7 @@ public class CriarVaga extends javax.swing.JInternalFrame {
         bg.addBinding(b);
         
         
+        
         bg.bind();
     }
 
@@ -161,9 +176,9 @@ public class CriarVaga extends javax.swing.JInternalFrame {
         lblExtraAumento = new javax.swing.JLabel();
         lblAumentoQuadro = new javax.swing.JLabel();
         txtCargo = new javax.swing.JTextField();
-        txtSubstituicao = new javax.swing.JTextField();
-        txtAumentoQuadro = new javax.swing.JTextField();
-        txtExtraOrcamento = new javax.swing.JTextField();
+        cbxSubstituicao = new javax.swing.JComboBox<>();
+        cbxExtraOrcamento = new javax.swing.JComboBox<>();
+        cbxAumentoQuadro = new javax.swing.JComboBox<>();
         jPanel4 = new javax.swing.JPanel();
         lblSexo = new javax.swing.JLabel();
         lblRequisitos = new javax.swing.JLabel();
@@ -174,9 +189,10 @@ public class CriarVaga extends javax.swing.JInternalFrame {
         txtHorarioTrabalho = new javax.swing.JTextField();
         txtCusto = new javax.swing.JTextField();
         txtRequisitos = new javax.swing.JTextField();
-        txtSexo = new javax.swing.JTextField();
-        txtInternet = new javax.swing.JTextField();
-        txtMotorista = new javax.swing.JTextField();
+        cbxRequisitos1 = new javax.swing.JComboBox<>();
+        cbxSexo = new javax.swing.JComboBox<>();
+        cbxInternet = new javax.swing.JComboBox<>();
+        cbxMotorista = new javax.swing.JComboBox<>();
         lblConsideracoes = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtaConsideracoes = new javax.swing.JTextArea();
@@ -184,6 +200,7 @@ public class CriarVaga extends javax.swing.JInternalFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tbVagas = new javax.swing.JTable();
         btnExcluir = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -228,32 +245,42 @@ public class CriarVaga extends javax.swing.JInternalFrame {
             }
         });
 
+        cbxSubstituicao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sim", "Não" }));
+        cbxSubstituicao.setToolTipText("");
+
+        cbxExtraOrcamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sim", "Não" }));
+        cbxExtraOrcamento.setToolTipText("");
+
+        cbxAumentoQuadro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sim", "Não" }));
+        cbxAumentoQuadro.setToolTipText("");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addGap(33, 33, 33)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(lblSubstituicao)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtSubstituicao, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(0, 0, 0)
                         .addComponent(lblCargo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(46, 46, 46)
+                        .addComponent(txtCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(lblSubstituicao)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cbxSubstituicao, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(lblExtraAumento)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtExtraOrcamento))
+                        .addComponent(cbxExtraOrcamento, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(lblAumentoQuadro)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtAumentoQuadro, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbxAumentoQuadro, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(23, 23, 23))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -263,14 +290,14 @@ public class CriarVaga extends javax.swing.JInternalFrame {
                     .addComponent(lblCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblExtraAumento)
                     .addComponent(txtCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtExtraOrcamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(cbxExtraOrcamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblAumentoQuadro)
                     .addComponent(lblSubstituicao)
-                    .addComponent(txtSubstituicao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtAumentoQuadro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(28, Short.MAX_VALUE))
+                    .addComponent(cbxSubstituicao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbxAumentoQuadro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         jPanel4.setBackground(new java.awt.Color(204, 204, 204));
@@ -293,60 +320,66 @@ public class CriarVaga extends javax.swing.JInternalFrame {
             }
         });
 
-        txtMotorista.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtMotoristaActionPerformed(evt);
-            }
-        });
+        cbxSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Feminino", "Masculino" }));
+        cbxSexo.setToolTipText("");
+
+        cbxInternet.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sim", "Não" }));
+        cbxInternet.setToolTipText("");
+
+        cbxMotorista.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sim", "Não" }));
+        cbxMotorista.setToolTipText("");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(lblRequisitos)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtRequisitos, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(lblSexo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                        .addGap(29, 29, 29)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(lblRequisitos)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtRequisitos))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(lblSexo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbxSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addGap(83, 83, 83)
+                        .addComponent(cbxRequisitos1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(lblInternet)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtInternet, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(lblHorarioTrabalhp)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtHorarioTrabalho)))
+                    .addComponent(lblInternet)
+                    .addComponent(lblHorarioTrabalhp))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(lblMotorista)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtMotorista, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbxInternet, 0, 139, Short.MAX_VALUE)
+                    .addComponent(txtHorarioTrabalho))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(lblCusto)
                         .addGap(18, 18, 18)
-                        .addComponent(txtCusto)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(txtCusto))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(lblMotorista)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbxMotorista, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(20, 20, 20))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
+                .addGap(25, 25, 25)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblSexo)
                     .addComponent(lblInternet)
                     .addComponent(lblMotorista)
-                    .addComponent(txtSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtInternet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtMotorista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbxSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbxInternet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbxMotorista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblRequisitos)
@@ -355,7 +388,9 @@ public class CriarVaga extends javax.swing.JInternalFrame {
                     .addComponent(txtHorarioTrabalho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtCusto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtRequisitos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addGap(1, 1, 1)
+                .addComponent(cbxRequisitos1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         lblConsideracoes.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -371,12 +406,14 @@ public class CriarVaga extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
-                    .addComponent(lblConsideracoes)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(25, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(lblConsideracoes)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -392,7 +429,10 @@ public class CriarVaga extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        btnCriarVaga.setBackground(new java.awt.Color(102, 255, 102));
         btnCriarVaga.setText("Criar Vaga");
+        btnCriarVaga.setContentAreaFilled(false);
+        btnCriarVaga.setOpaque(true);
         btnCriarVaga.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCriarVagaActionPerformed(evt);
@@ -412,10 +452,19 @@ public class CriarVaga extends javax.swing.JInternalFrame {
         ));
         jScrollPane2.setViewportView(tbVagas);
 
+        btnExcluir.setBackground(new java.awt.Color(255, 51, 51));
         btnExcluir.setText("Excluir");
+        btnExcluir.setDefaultCapable(false);
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExcluirActionPerformed(evt);
+            }
+        });
+
+        btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
             }
         });
 
@@ -425,31 +474,36 @@ public class CriarVaga extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(214, 214, 214)
-                        .addComponent(btnCriarVaga, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addGap(196, 196, 196)
+                        .addComponent(btnCriarVaga, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(67, 67, 67)
+                        .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(186, 186, 186)
+                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2))
+                .addGap(18, 18, 18))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnCriarVaga, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCriarVaga, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -473,29 +527,20 @@ public class CriarVaga extends javax.swing.JInternalFrame {
     private void btnCriarVagaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarVagaActionPerformed
         
         Vaga v = new Vaga();
+        
         if(tbVagas.getSelectedRows().length==0){
             v.setCargo(txtCargo.getText());
-            v.setSubstituicao(txtSubstituicao.getText());
-            v.setExtraOrcamento(txtExtraOrcamento.getText());
-            v.setAumentoQuadro(txtAumentoQuadro.getText());
-            v.setSexo(txtSexo.getText());
-            v.setInternet(txtInternet.getText());
-            v.setMotorista(txtMotorista.getText());
-            v.setRequisitos(txtRequisitos.getText());
+                        
+            v.setRequisitos(Integer.parseInt(txtRequisitos.getText()));
             v.setHorario_trabalho(txtHorarioTrabalho.getText());
-            v.setCusto(txtCusto.getText());
+            v.setCusto(Float.parseFloat(txtCusto.getText()));
             v.setConsideracoes(txtaConsideracoes.getText());
             
             lstVagas.add(v);
             
             txtaConsideracoes.setText("");
             txtCargo.setText("");
-            txtSubstituicao.setText("");
-            txtExtraOrcamento.setText("");
-            txtAumentoQuadro.setText("");
-            txtSexo.setText("");
-            txtInternet.setText("");
-            txtMotorista.setText("");
+                        
             txtRequisitos.setText("");
             txtHorarioTrabalho.setText("");
             txtCusto.setText("");
@@ -511,22 +556,24 @@ public class CriarVaga extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCargoActionPerformed
 
-    private void txtMotoristaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMotoristaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtMotoristaActionPerformed
-
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        CriarVagaDAO cv = new CriarVagaDAO();
         
         int r[] = tbVagas.getSelectedRows();
+        
         List<Vaga> v = new LinkedList<>();
         
         for(int i=0;i<r.length;i++){ 
             
             int idxTabela = r[i];
             int idxList = tbVagas.convertRowIndexToModel(idxTabela);
+            cv.excluir(lstVagas.get(idxList));
             v.add(lstVagas.get(idxList));
-        }
+        }        
         lstVagas.removeAll(v);     
+        
+        
+        
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
@@ -535,10 +582,32 @@ public class CriarVaga extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_formInternalFrameClosing
 
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        
+        CriarVagaDAO cv = new CriarVagaDAO();
+        
+        for(Vaga v: lstVagas){
+            if(v.getIdVaga()==null){
+                cv.inserir(v);
+            }else{
+                cv.alterar(v);
+            }
+        }
+        
+    }//GEN-LAST:event_btnSalvarActionPerformed
+        
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCriarVaga;
     private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnSalvar;
+    private javax.swing.JComboBox<String> cbxAumentoQuadro;
+    private javax.swing.JComboBox<String> cbxExtraOrcamento;
+    private javax.swing.JComboBox<String> cbxInternet;
+    private javax.swing.JComboBox<String> cbxMotorista;
+    private javax.swing.JComboBox<String> cbxRequisitos1;
+    private javax.swing.JComboBox<String> cbxSexo;
+    private javax.swing.JComboBox<String> cbxSubstituicao;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -557,16 +626,10 @@ public class CriarVaga extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblSexo;
     private javax.swing.JLabel lblSubstituicao;
     private javax.swing.JTable tbVagas;
-    private javax.swing.JTextField txtAumentoQuadro;
     private javax.swing.JTextField txtCargo;
     private javax.swing.JTextField txtCusto;
-    private javax.swing.JTextField txtExtraOrcamento;
     private javax.swing.JTextField txtHorarioTrabalho;
-    private javax.swing.JTextField txtInternet;
-    private javax.swing.JTextField txtMotorista;
     private javax.swing.JTextField txtRequisitos;
-    private javax.swing.JTextField txtSexo;
-    private javax.swing.JTextField txtSubstituicao;
     private javax.swing.JTextArea txtaConsideracoes;
     // End of variables declaration//GEN-END:variables
 }

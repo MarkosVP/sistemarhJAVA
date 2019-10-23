@@ -16,7 +16,7 @@ public class Vaga {
     
     public static final String PROP_CARGO = "cargo";
     public static final String PROP_SUBSTITUICAO = "substituicao";
-    public static final String PROP_EXTRA_ORCAMENTO = "extra_orcamento";
+    public static final String PROP_EXTRA_ORCAMENTO = "extraOrcamento";
     public static final String PROP_AUMENTO_QUADRO = "aumentoQuadro";
     public static final String PROP_SEXO = "sexo";
     public static final String PROP_INTERNET = "internet";
@@ -115,16 +115,16 @@ public class Vaga {
         propertyChangeSupport.firePropertyChange(PROP_MOTORISTA, oldMotorista, motorista);
     }
 
-    private String requisitos;
+    private Integer requisitos;
 
     
 
-    public String getRequisitos() {
+    public Integer getRequisitos() {
         return requisitos;
     }
 
-    public void setRequisitos(String requisitos) {
-        String oldRequisitos = this.requisitos;
+    public void setRequisitos(Integer requisitos) {
+        Integer oldRequisitos = this.requisitos;
         this.requisitos = requisitos;
         propertyChangeSupport.firePropertyChange(PROP_REQUISITOS, oldRequisitos, requisitos);
     }
@@ -143,16 +143,16 @@ public class Vaga {
         propertyChangeSupport.firePropertyChange(PROP_HORARIO_TRABALHO, oldHorario_trabalho, horario_trabalho);
     }
 
-    private String custo;
+    private Float custo;
 
     
 
-    public String getCusto() {
+    public Float getCusto() {
         return custo;
     }
 
-    public void setCusto(String custo) {
-        String oldCusto = this.custo;
+    public void setCusto(Float custo) {
+        Float oldCusto = this.custo;
         this.custo = custo;
         propertyChangeSupport.firePropertyChange(PROP_CUSTO, oldCusto, custo);
     }
@@ -171,7 +171,16 @@ public class Vaga {
         propertyChangeSupport.firePropertyChange(PROP_CONSIDERACOES, oldConsideracoes, consideracoes);
     }
 
-    
+        private Integer IdVaga;
+
+    public Integer getIdVaga() {
+        return IdVaga;
+    }
+
+    public void setIdVaga(Integer IdVaga) {
+        this.IdVaga = IdVaga;
+    }
+
     private transient final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
     
     public void addPropertyChangeListener(PropertyChangeListener listener) {
