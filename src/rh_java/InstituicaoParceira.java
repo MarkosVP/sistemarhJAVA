@@ -549,7 +549,7 @@ public class InstituicaoParceira extends javax.swing.JInternalFrame {
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        setBounds(0, 0, 678, 560);
+        setBounds(0, 0, 654, 554);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
@@ -661,6 +661,7 @@ public class InstituicaoParceira extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblNumero;
     private javax.swing.JLabel lblPais;
     private javax.swing.JLabel lblRazaoSocial;
+    private javax.swing.JLabel lblUF;
     private javax.swing.JTextField txtApelido;
     private javax.swing.JTextField txtCEP;
     private javax.swing.JTextField txtCNPJ;

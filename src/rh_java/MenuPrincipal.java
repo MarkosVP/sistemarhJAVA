@@ -10,7 +10,6 @@ package rh_java;
  * @author marco
  */
 public class MenuPrincipal extends javax.swing.JFrame {
-
     /**
      * Creates new form MenuPrincipal
      */
@@ -32,12 +31,16 @@ public class MenuPrincipal extends javax.swing.JFrame {
         mnCadastro = new javax.swing.JMenu();
         mnitContratarFunc = new javax.swing.JMenuItem();
         mnitCadastrarUsuario = new javax.swing.JMenuItem();
+        mnitCadInstParceira = new javax.swing.JMenuItem();
+        mniCadCandidato = new javax.swing.JMenuItem();
         mnVagas = new javax.swing.JMenu();
         mnitCadastrarVaga = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         mnCadastro.setText("Cadastro");
+        mnCadastro.setToolTipText("Menus de Cadastro");
+        mnCadastro.setIconTextGap(-1);
 
         mnitContratarFunc.setText("Contratar Funcionário");
         mnitContratarFunc.addActionListener(new java.awt.event.ActionListener() {
@@ -55,9 +58,26 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         mnCadastro.add(mnitCadastrarUsuario);
 
+        mnitCadInstParceira.setText("Cadastrar Instituição");
+        mnitCadInstParceira.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnitCadInstParceiraActionPerformed(evt);
+            }
+        });
+        mnCadastro.add(mnitCadInstParceira);
+
+        mniCadCandidato.setText("Cadastrar Candidato");
+        mniCadCandidato.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniCadCandidatoActionPerformed(evt);
+            }
+        });
+        mnCadastro.add(mniCadCandidato);
+
         mnbBarraMenu.add(mnCadastro);
 
         mnVagas.setText("Vagas");
+        mnVagas.setToolTipText("Vagas Existentes e Criação de Novas");
 
         mnitCadastrarVaga.setText("Cadastrar Vaga");
         mnitCadastrarVaga.addActionListener(new java.awt.event.ActionListener() {
@@ -75,11 +95,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(AreadeTrabalho, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+            .addComponent(AreadeTrabalho, javax.swing.GroupLayout.DEFAULT_SIZE, 593, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(AreadeTrabalho, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE)
+            .addComponent(AreadeTrabalho, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
         );
 
         pack();
@@ -100,15 +120,23 @@ public class MenuPrincipal extends javax.swing.JFrame {
         AreadeTrabalho.abrirCriarVaga();
     }//GEN-LAST:event_mnitCadastrarVagaActionPerformed
 
+    private void mnitCadInstParceiraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnitCadInstParceiraActionPerformed
+        // TODO add your handling code here:
+        AreadeTrabalho.abrirInstituicaoParceira();
+    }//GEN-LAST:event_mnitCadInstParceiraActionPerformed
+
+    private void mniCadCandidatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCadCandidatoActionPerformed
+        // TODO add your handling code here:
+        AreadeTrabalho.abrirCadCandidato();
+    }//GEN-LAST:event_mniCadCandidatoActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MenuPrincipal().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new MenuPrincipal().setVisible(true);
         });
     }
 
@@ -117,6 +145,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu mnCadastro;
     private javax.swing.JMenu mnVagas;
     private javax.swing.JMenuBar mnbBarraMenu;
+    private javax.swing.JMenuItem mniCadCandidato;
+    private javax.swing.JMenuItem mnitCadInstParceira;
     private javax.swing.JMenuItem mnitCadastrarUsuario;
     private javax.swing.JMenuItem mnitCadastrarVaga;
     private javax.swing.JMenuItem mnitContratarFunc;

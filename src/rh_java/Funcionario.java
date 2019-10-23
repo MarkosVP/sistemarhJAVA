@@ -279,5 +279,28 @@ private String nome;
         propertyChangeSupport.removePropertyChangeListener(listener);
     }
 
+    private Integer id;
+
+    public static final String PROP_ID = "id";
+
+    /**
+     * Get the value of id
+     *
+     * @return the value of id
+     */
+    public Integer getId() {
+        return id;
+    }
+
+    /**
+     * Set the value of id
+     *
+     * @param id new value of id
+     */
+    public void setId(Integer id) {
+        Integer oldId = this.id;
+        this.id = id;
+        propertyChangeSupport.firePropertyChange(PROP_ID, oldId, id);
+    }
 
 }
