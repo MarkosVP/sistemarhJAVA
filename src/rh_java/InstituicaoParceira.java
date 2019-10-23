@@ -3,17 +3,29 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jacto;
+package rh_java;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import javax.swing.JDesktopPane;
+import javax.swing.JOptionPane;
+import org.jdesktop.beansbinding.AutoBinding;
+import org.jdesktop.beansbinding.BeanProperty;
+import org.jdesktop.beansbinding.Binding;
+import org.jdesktop.beansbinding.BindingGroup;
+import org.jdesktop.beansbinding.Bindings;
+import org.jdesktop.observablecollections.ObservableCollections;
+import org.jdesktop.swingbinding.JTableBinding;
+import org.jdesktop.swingbinding.SwingBindings;
 
 /**
  *
  * @author pedro
  */
 public class InstituicaoParceira extends javax.swing.JInternalFrame {
-
+    
+    private List<Instituicao> instituicao;
     /**
      * Creates new form InstituicaoParceira
      */
@@ -24,6 +36,133 @@ public class InstituicaoParceira extends javax.swing.JInternalFrame {
     
     public InstituicaoParceira() {
         initComponents();
+        
+        instituicao = new ArrayList<>();
+        InstituicaoDAO instituicaoDao = new InstituicaoDAO();
+        instituicao = instituicaoDao.listar();
+        instituicao = ObservableCollections.observableList(instituicao);
+        
+        BindingGroup bg = new BindingGroup();
+        
+        JTableBinding tb = SwingBindings.createJTableBinding(
+            AutoBinding.UpdateStrategy.READ_WRITE,
+            instituicao,
+            Tabela
+        );
+        
+        JTableBinding.ColumnBinding cb = tb.addColumnBinding(BeanProperty.create("razaosocial"));
+        cb.setColumnName("RazaoSocial");
+        cb = tb.addColumnBinding(BeanProperty.create("cnpj"));
+        cb.setColumnName("CNPJ");
+        cb = tb.addColumnBinding(BeanProperty.create("apelido"));
+        cb.setColumnName("Apelido");
+        cb = tb.addColumnBinding(BeanProperty.create("cep"));
+        cb.setColumnName("CEP");
+        cb = tb.addColumnBinding(BeanProperty.create("logradouro"));
+        cb.setColumnName("Logradouro");
+        cb = tb.addColumnBinding(BeanProperty.create("numero"));
+        cb.setColumnName("Numero");
+        cb = tb.addColumnBinding(BeanProperty.create("cidade"));
+        cb.setColumnName("Cidade");
+        cb = tb.addColumnBinding(BeanProperty.create("estado"));
+        cb.setColumnName("Estado");
+        cb = tb.addColumnBinding(BeanProperty.create("pais"));
+        cb.setColumnName("Pais");
+        
+        bg.addBinding(tb);
+        
+        
+        Binding b = Bindings.createAutoBinding(
+                AutoBinding.UpdateStrategy.READ_WRITE, 
+                Tabela,
+                BeanProperty.create("selectedElement.razaosocial"),
+                txtRazaoSocial,
+                BeanProperty.create("text")
+        );
+        
+        bg.addBinding(b);
+        
+        b = Bindings.createAutoBinding(
+                AutoBinding.UpdateStrategy.READ_WRITE, 
+                Tabela,
+                BeanProperty.create("selectedElement.cnpj"),
+                txtCNPJ,
+                BeanProperty.create("text")
+        );
+        
+        bg.addBinding(b);        
+        
+        b = Bindings.createAutoBinding(
+                AutoBinding.UpdateStrategy.READ_WRITE, 
+                Tabela,
+                BeanProperty.create("selectedElement.apelido"),
+                txtApelido,
+                BeanProperty.create("text")
+        );
+        
+        bg.addBinding(b);        
+        
+        b = Bindings.createAutoBinding(
+                AutoBinding.UpdateStrategy.READ_WRITE, 
+                Tabela,
+                BeanProperty.create("selectedElement.cep"),
+                txtCEP,
+                BeanProperty.create("text")
+        );
+        
+        bg.addBinding(b);        
+        
+        b = Bindings.createAutoBinding(
+                AutoBinding.UpdateStrategy.READ_WRITE, 
+                Tabela,
+                BeanProperty.create("selectedElement.logradouro"),
+                txtLogradouro,
+                BeanProperty.create("text")
+        );
+        
+        bg.addBinding(b);        
+        
+        b = Bindings.createAutoBinding(
+                AutoBinding.UpdateStrategy.READ_WRITE, 
+                Tabela,
+                BeanProperty.create("selectedElement.numero"),
+                txtNumero,
+                BeanProperty.create("text")
+        );
+        
+        bg.addBinding(b);        
+
+        b = Bindings.createAutoBinding(
+                AutoBinding.UpdateStrategy.READ_WRITE, 
+                Tabela,
+                BeanProperty.create("selectedElement.cidade"),
+                txtCidade,
+                BeanProperty.create("text")
+        );
+        
+        bg.addBinding(b);        
+        
+        b = Bindings.createAutoBinding(
+                AutoBinding.UpdateStrategy.READ_WRITE, 
+                Tabela,
+                BeanProperty.create("selectedElement.estado"),
+                txtEstado,
+                BeanProperty.create("text")
+        );
+        
+        bg.addBinding(b);        
+        
+        b = Bindings.createAutoBinding(
+                AutoBinding.UpdateStrategy.READ_WRITE, 
+                Tabela,
+                BeanProperty.create("selectedElement.pais"),
+                txtPais,
+                BeanProperty.create("text")
+        );
+        
+        bg.addBinding(b);        
+        
+        bg.bind();
     }
     
     
@@ -62,7 +201,6 @@ public class InstituicaoParceira extends javax.swing.JInternalFrame {
         jLabel9 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
-        lblTitulo1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         lblRazaoSocial = new javax.swing.JLabel();
@@ -80,13 +218,15 @@ public class InstituicaoParceira extends javax.swing.JInternalFrame {
         txtNumero = new javax.swing.JTextField();
         lblCidade = new javax.swing.JLabel();
         txtCidade = new javax.swing.JTextField();
-        lblUF = new javax.swing.JLabel();
+        lblEstado = new javax.swing.JLabel();
         txtEstado = new javax.swing.JTextField();
         lblPais = new javax.swing.JLabel();
         txtPais = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        Tabela = new javax.swing.JTable();
+        btnSalvar = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
+        btnGravar = new javax.swing.JButton();
 
         labelRazaoSocial.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         labelRazaoSocial.setText("Razao Social:");
@@ -156,7 +296,6 @@ public class InstituicaoParceira extends javax.swing.JInternalFrame {
         setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         setClosable(true);
         setIconifiable(true);
-        setMaximizable(true);
         setTitle("Cadastrar Instituicao Parceira");
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
@@ -175,10 +314,6 @@ public class InstituicaoParceira extends javax.swing.JInternalFrame {
             public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
             }
         });
-
-        lblTitulo1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        lblTitulo1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo1.setText("Cadastrar Instituiçao Parceira");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -255,8 +390,8 @@ public class InstituicaoParceira extends javax.swing.JInternalFrame {
         lblCidade.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblCidade.setText("Cidade:");
 
-        lblUF.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        lblUF.setText("UF:");
+        lblEstado.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lblEstado.setText("UF:");
 
         txtEstado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -286,7 +421,7 @@ public class InstituicaoParceira extends javax.swing.JInternalFrame {
                         .addGap(12, 12, 12)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(lblUF)
+                                .addComponent(lblEstado)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -317,7 +452,7 @@ public class InstituicaoParceira extends javax.swing.JInternalFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCidade)
                     .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblUF)
+                    .addComponent(lblEstado)
                     .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblPais)
                     .addComponent(txtPais, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -345,14 +480,7 @@ public class InstituicaoParceira extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButton3.setText("Salvar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        Tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -360,42 +488,68 @@ public class InstituicaoParceira extends javax.swing.JInternalFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Razao Social", "CNPJ", "Logradouro", "Numero"
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable3);
+        jScrollPane3.setViewportView(Tabela);
+
+        btnSalvar.setText("Adicionar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
+
+        btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
+
+        btnGravar.setText("Gravar");
+        btnGravar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGravarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblTitulo1, javax.swing.GroupLayout.PREFERRED_SIZE, 660, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(295, 295, 295))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(331, 331, 331))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(86, 86, 86)
+                                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(332, 332, 332))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(lblTitulo1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
+                    .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        setBounds(0, 0, 679, 588);
+        setBounds(0, 0, 678, 560);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
@@ -413,54 +567,10 @@ public class InstituicaoParceira extends javax.swing.JInternalFrame {
     private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
 
         JDesktopPane painel = getDesktopPane();
-        if(painel instanceof AreaTrabalho){
-            ((AreaTrabalho)painel).fecharInstituicaoParceira();
+        if(painel instanceof AreadeTrabalho){
+            ((AreadeTrabalho)painel).fecharInstituicaoParceira();
         }
     }//GEN-LAST:event_formInternalFrameClosing
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-         
-        inst.setRazaoSocial(txtRazaoSocial.getText());
-        inst.setCNPJ(txtCNPJ.getText());
-        inst.setApelido(txtApelido.getText());
-        inst.setCEP(txtCEP.getText());
-        inst.setLogradouro(txtLogradouro.getText());
-        inst.setNumero(txtNumero.getText());
-        inst.setCidade(txtCidade.getText());
-        inst.setEstado(txtEstado.getText());
-        inst.setPais(txtPais.getText());
-        
-        System.out.println(inst.getRazaoSocial());
-        System.out.println(inst.getCNPJ());
-        System.out.println(inst.getLogradouro());
-        System.out.println(inst.getNumero());
-        
-        ArrayList<Instituicao> listaInstituicao = new ArrayList<Instituicao>();
-        listaInstituicao.add(inst);
-        
-        for(int i=0; i<listaInstituicao.size(); i++){
-            jTable3.setValueAt(inst.getRazaoSocial(), 0+j, 0);
-            jTable3.setValueAt(inst.getCNPJ(), 0+j, 1);
-            jTable3.setValueAt(inst.getLogradouro(), 0+j, 2);
-            jTable3.setValueAt(inst.getNumero(), 0+j, 3);
-            
-            j++;
-        }
-        
-        //Instituicao inst = new Instituicao();
-       /* Instituicao inst = new Instituicao( txtRazaoSocial.getText(),
-                                            txtCNPJ.getText(),
-                                            txtApelido.getText(),
-                                            txtCEP.getText(),
-                                            txtLogradouro.getText(),
-                                            txtNumero.getText(),
-                                            txtCidade.getText(),
-                                            txtEstado.getText(),
-                                            txtPais.getText());
-        */
-       
-        //lstInstituicao.add(inst);
-    }//GEN-LAST:event_jButton3ActionPerformed
 
     private void txtEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEstadoActionPerformed
         // TODO add your handling code here:
@@ -470,9 +580,48 @@ public class InstituicaoParceira extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtApelidoActionPerformed
 
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        
+        instituicao.add(new Instituicao());
+        Tabela.getSelectionModel().setSelectionInterval(instituicao.size()-1, instituicao.size()-1);
+        
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarActionPerformed
+        InstituicaoDAO pd = new InstituicaoDAO();
+        
+        for(Instituicao i: instituicao){
+            if(i.getId()==null){
+                pd.inserir(i);
+            }else{
+                pd.alterar(i);
+            }
+        }
+    }//GEN-LAST:event_btnGravarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        InstituicaoDAO inst = new InstituicaoDAO();
+        
+        int r[] = Tabela.getSelectedRows();
+        
+        List<Instituicao> v = new LinkedList<>();
+        
+        for(int i=0;i<r.length;i++){ 
+            
+            int idxTabela = r[i];
+            int idxList = Tabela.convertRowIndexToModel(idxTabela);
+            inst.apagar(instituicao.get(idxList));
+            v.add(instituicao.get(idxList));
+        }        
+        instituicao.removeAll(v);             
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton3;
+    private javax.swing.JTable Tabela;
+    private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnGravar;
+    private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -482,10 +631,9 @@ public class InstituicaoParceira extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField2;
@@ -508,12 +656,11 @@ public class InstituicaoParceira extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblCEP;
     private javax.swing.JLabel lblCNPJ;
     private javax.swing.JLabel lblCidade;
+    private javax.swing.JLabel lblEstado;
     private javax.swing.JLabel lblLogradouro;
     private javax.swing.JLabel lblNumero;
     private javax.swing.JLabel lblPais;
     private javax.swing.JLabel lblRazaoSocial;
-    private javax.swing.JLabel lblTitulo1;
-    private javax.swing.JLabel lblUF;
     private javax.swing.JTextField txtApelido;
     private javax.swing.JTextField txtCEP;
     private javax.swing.JTextField txtCNPJ;
