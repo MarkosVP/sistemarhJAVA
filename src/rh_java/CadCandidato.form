@@ -33,7 +33,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="tbpSubMenus" max="32767" attributes="0"/>
+          <Component id="tbpSubMenus" pref="691" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -138,7 +138,7 @@
                                   </Group>
                               </Group>
                           </Group>
-                          <EmptySpace pref="11" max="32767" attributes="0"/>
+                          <EmptySpace pref="21" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -184,9 +184,6 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="tfNome">
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="None"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblSobrenome">
                   <Properties>
@@ -222,9 +219,6 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="tfCPF">
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfCPFActionPerformed"/>
-                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -358,9 +352,11 @@
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="bttInserir" min="-2" pref="90" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="175" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
                           <Component id="bttAlterar" min="-2" pref="90" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="102" max="32767" attributes="0"/>
+                          <Component id="bttLimpar" min="-2" pref="90" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
                           <Component id="bttExcluir" min="-2" pref="90" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -374,6 +370,7 @@
                               <Component id="bttInserir" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="bttAlterar" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="bttExcluir" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="bttLimpar" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
@@ -401,6 +398,17 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Excluir"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bttExcluirActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JButton" name="bttLimpar">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Limpar"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bttLimparActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -439,7 +447,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="676" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="686" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -461,7 +469,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="676" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="686" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">

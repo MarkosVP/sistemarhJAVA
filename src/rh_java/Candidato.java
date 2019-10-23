@@ -4,6 +4,17 @@ package rh_java;
  * Classe que contém os dados dos Candidatos
  *
  * @author marco
+ * @params id_candidato int
+ * @params nome String
+ * @params sobrenome String
+ * @params cpf String
+ * @params pais String
+ * @params cidade String
+ * @params estado String,
+ * @ params cep String
+ * @ params logradouro String
+ * @params numero int
+ * @params bairro String
  */
 public class Candidato {
     //Inicializando Variáveis
