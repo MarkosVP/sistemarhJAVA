@@ -82,17 +82,17 @@ public class CadCandidatoDAO extends DAO<Candidato>{
     public boolean alterar(Candidato element) {
         try{
             //Montando a Query
-            String qry = "UPDATE candidatos SET"
-                    + "nome = ?,"
-                    + "sobrenome = ?,"
-                    + "cpf = ?,"
-                    + "cep = ?,"
-                    + "logradouro = ?,"
-                    + "numero = ?,"
-                    + "bairro = ?,"
-                    + "cidade = ?,"
-                    + "estado = ?,"
-                    + "pais = ?"
+            String qry = "UPDATE candidatos SET "
+                    + "nome = ?, "
+                    + "sobrenome = ?, "
+                    + "cpf = ?, "
+                    + "cep = ?, "
+                    + "logradouro = ?, "
+                    + "numero = ?, "
+                    + "bairro = ?, "
+                    + "cidade = ?, "
+                    + "estado = ?, "
+                    + "pais = ? "
                     + "WHERE id_candidato = ?";
             
             //Montando a Query para autalizar candidato

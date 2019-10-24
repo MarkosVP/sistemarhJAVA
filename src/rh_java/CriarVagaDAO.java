@@ -99,7 +99,7 @@ public class CriarVagaDAO extends DAO<Vaga>{
     }        
 
     @Override
-    public boolean excluir(Vaga element) {
+    public boolean apagar(Vaga element) {
         String sql = "DELETE FROM vaga "
                     + "WHERE id = ?";
         try{            

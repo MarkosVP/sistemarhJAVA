@@ -567,7 +567,7 @@ public class CriarVaga extends javax.swing.JInternalFrame {
             
             int idxTabela = r[i];
             int idxList = tbVagas.convertRowIndexToModel(idxTabela);
-            cv.excluir(lstVagas.get(idxList));
+            cv.apagar(lstVagas.get(idxList));
             v.add(lstVagas.get(idxList));
         }        
         lstVagas.removeAll(v);     

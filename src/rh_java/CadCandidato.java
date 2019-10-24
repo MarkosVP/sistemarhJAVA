@@ -180,13 +180,13 @@ public class CadCandidato extends javax.swing.JInternalFrame {
         tfNumero = new javax.swing.JTextField();
         lblBairro = new javax.swing.JLabel();
         tfBairro = new javax.swing.JTextField();
+        scllpnTabela = new javax.swing.JScrollPane();
+        tbTabelaCandidatos = new javax.swing.JTable();
         pnBotoes = new javax.swing.JPanel();
         bttInserir = new javax.swing.JButton();
         bttAlterar = new javax.swing.JButton();
-        bttExcluir = new javax.swing.JButton();
         bttLimpar = new javax.swing.JButton();
-        spnTabelaCandidatos = new javax.swing.JScrollPane();
-        tbTabelaCandidatos = new javax.swing.JTable();
+        bttExcluir = new javax.swing.JButton();
         pnTelefones = new javax.swing.JPanel();
         pnCompetencias = new javax.swing.JPanel();
 
@@ -237,35 +237,32 @@ public class CadCandidato extends javax.swing.JInternalFrame {
             .addGroup(pnlInfoPessoaisLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlInfoPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblCamposInfoPessoais, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlInfoPessoaisLayout.createSequentialGroup()
-                        .addGroup(pnlInfoPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlInfoPessoaisLayout.createSequentialGroup()
-                                .addComponent(lblNome)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lblSobrenome))
-                            .addGroup(pnlInfoPessoaisLayout.createSequentialGroup()
-                                .addComponent(lblCPF)
-                                .addGap(18, 18, 18)
-                                .addComponent(tfCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lblPais)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfPais, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lblCidade)))
+                        .addComponent(lblCPF)
+                        .addGap(18, 18, 18)
+                        .addComponent(tfCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblPais)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnlInfoPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlInfoPessoaisLayout.createSequentialGroup()
-                                .addComponent(tfCidade, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lblEstado)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(tfSobrenome))))
-                .addContainerGap(21, Short.MAX_VALUE))
+                        .addComponent(tfPais, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblCidade)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblEstado)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfEstado))
+                    .addGroup(pnlInfoPessoaisLayout.createSequentialGroup()
+                        .addComponent(lblNome)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblSobrenome)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfSobrenome, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblCamposInfoPessoais, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlInfoPessoaisLayout.setVerticalGroup(
             pnlInfoPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -356,6 +353,46 @@ public class CadCandidato extends javax.swing.JInternalFrame {
                 .addGap(0, 17, Short.MAX_VALUE))
         );
 
+        tbTabelaCandidatos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "CPF", "Nome", "País", "Cidade"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        scllpnTabela.setViewportView(tbTabelaCandidatos);
+        if (tbTabelaCandidatos.getColumnModel().getColumnCount() > 0) {
+            tbTabelaCandidatos.getColumnModel().getColumn(0).setResizable(false);
+            tbTabelaCandidatos.getColumnModel().getColumn(1).setResizable(false);
+            tbTabelaCandidatos.getColumnModel().getColumn(2).setResizable(false);
+            tbTabelaCandidatos.getColumnModel().getColumn(3).setResizable(false);
+        }
+
         pnBotoes.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         bttInserir.setText("Inserir");
@@ -372,13 +409,6 @@ public class CadCandidato extends javax.swing.JInternalFrame {
             }
         });
 
-        bttExcluir.setText("Excluir");
-        bttExcluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bttExcluirActionPerformed(evt);
-            }
-        });
-
         bttLimpar.setText("Limpar");
         bttLimpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -386,18 +416,25 @@ public class CadCandidato extends javax.swing.JInternalFrame {
             }
         });
 
+        bttExcluir.setText("Excluir");
+        bttExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bttExcluirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnBotoesLayout = new javax.swing.GroupLayout(pnBotoes);
         pnBotoes.setLayout(pnBotoesLayout);
         pnBotoesLayout.setHorizontalGroup(
             pnBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnBotoesLayout.createSequentialGroup()
+            .addGroup(pnBotoesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(bttInserir, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(90, 90, 90)
+                .addGap(71, 71, 71)
                 .addComponent(bttAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
+                .addGap(92, 92, 92)
                 .addComponent(bttLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(90, 90, 90)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(bttExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -407,24 +444,11 @@ public class CadCandidato extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(pnBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bttInserir)
-                    .addComponent(bttAlterar)
                     .addComponent(bttExcluir)
+                    .addComponent(bttAlterar)
                     .addComponent(bttLimpar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        tbTabelaCandidatos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        spnTabelaCandidatos.setViewportView(tbTabelaCandidatos);
 
         javax.swing.GroupLayout pnInfoPessoaisLayout = new javax.swing.GroupLayout(pnInfoPessoais);
         pnInfoPessoais.setLayout(pnInfoPessoaisLayout);
@@ -433,8 +457,8 @@ public class CadCandidato extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnInfoPessoaisLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnInfoPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(spnTabelaCandidatos)
                     .addComponent(pnBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(scllpnTabela)
                     .addComponent(pnlInfoAdicionais, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnlInfoPessoais, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -447,8 +471,8 @@ public class CadCandidato extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlInfoAdicionais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(spnTabelaCandidatos, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scllpnTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -459,7 +483,7 @@ public class CadCandidato extends javax.swing.JInternalFrame {
         pnTelefones.setLayout(pnTelefonesLayout);
         pnTelefonesLayout.setHorizontalGroup(
             pnTelefonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 686, Short.MAX_VALUE)
+            .addGap(0, 639, Short.MAX_VALUE)
         );
         pnTelefonesLayout.setVerticalGroup(
             pnTelefonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -472,7 +496,7 @@ public class CadCandidato extends javax.swing.JInternalFrame {
         pnCompetencias.setLayout(pnCompetenciasLayout);
         pnCompetenciasLayout.setHorizontalGroup(
             pnCompetenciasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 686, Short.MAX_VALUE)
+            .addGap(0, 639, Short.MAX_VALUE)
         );
         pnCompetenciasLayout.setVerticalGroup(
             pnCompetenciasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -485,7 +509,7 @@ public class CadCandidato extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tbpSubMenus, javax.swing.GroupLayout.DEFAULT_SIZE, 691, Short.MAX_VALUE)
+            .addComponent(tbpSubMenus)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -661,11 +685,6 @@ public class CadCandidato extends javax.swing.JInternalFrame {
         tfLogradouro.setText("");
         tfNumero.setText("");
         tfBairro.setText("");
-        
-        if(tbTabelaCandidatos.getSelectedRows().length > 0){
-            tbTabelaCandidatos.setColumnSelectionAllowed(true);
-            tbTabelaCandidatos.setRowSelectionAllowed(false);
-        }
     }//GEN-LAST:event_bttLimparActionPerformed
 
 
@@ -692,7 +711,7 @@ public class CadCandidato extends javax.swing.JInternalFrame {
     private javax.swing.JPanel pnTelefones;
     private javax.swing.JPanel pnlInfoAdicionais;
     private javax.swing.JPanel pnlInfoPessoais;
-    private javax.swing.JScrollPane spnTabelaCandidatos;
+    private javax.swing.JScrollPane scllpnTabela;
     private javax.swing.JTable tbTabelaCandidatos;
     private javax.swing.JTabbedPane tbpSubMenus;
     private javax.swing.JTextField tfBairro;
