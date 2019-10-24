@@ -1,7 +1,5 @@
-/dist/
-/build/
-/nbproject/
-/test/
-build.xml
-manifest.mf
-README.md
+/dist
+
+/build
+
+/nbproject
