@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
-import javax.swing.JOptionPane;
 import org.jdesktop.observablecollections.ObservableCollections;
 
 public class RequisitoDAO extends DAO<Requisito> {
@@ -31,30 +30,28 @@ public class RequisitoDAO extends DAO<Requisito> {
             
         }catch(SQLException e){
             System.out.println("erro ao inserir: "+ e.getMessage());
-            JOptionPane.showMessageDialog(null, "Erro ao inserir\n");
         }
         return false;
     }
 
     @Override
     public boolean apagar(Requisito element) {
-        String comando = "DELETE FROM usuario WHERE id_usuario = ?";
+        String comando = "DELETE FROM requisitos WHERE idRequisito = ?";
        try{
             PreparedStatement stmt = conn.prepareStatement(comando);
             
             stmt.setInt(1, element.getId_requisito());
-            
             stmt.execute();
+            return true;
             
         }catch(SQLException e){
             System.out.println("erro ao inserir: "+ e.getMessage());
-            JOptionPane.showMessageDialog(null, "Erro ao inserir\n");
         }
         return false;
     }
     @Override
     public boolean alterar(Requisito element) {
-        String sql = "UPDATE requisitos SET descRequisito = ? WHERE idRequsito = ?";
+        String sql = "UPDATE requisitos SET descRequisito = ? WHERE idRequisito = ?";
         try{
           
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -64,13 +61,11 @@ public class RequisitoDAO extends DAO<Requisito> {
             
             int linhas = stmt.executeUpdate();
             if (linhas > 0) {
-                System.out.println("Atualizado!");
+                return true;
             }
             
-            //JOptionPane.showMessageDialog(null, "Alterado com sucesso!\n");
            }catch(SQLException e){
             System.out.println("erro ao alterar: "+ e.getMessage());
-            JOptionPane.showMessageDialog(null, "Erro ao inserir, tente novamente!\n");
         }
         return false;
     }
@@ -80,12 +75,12 @@ public class RequisitoDAO extends DAO<Requisito> {
         List<Requisito> lstRequisitos = new LinkedList<>();
         lstRequisitos = ObservableCollections.observableList(lstRequisitos);
         
-        String sql = "SELECT * from requisito;";
+        String sql = "SELECT * from requisitos ORDER BY idRequisito;";
         try{
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next()){
-                Requisito r = new Requisito(rs.getString("idRequisito"));
+                Requisito r = new Requisito(rs.getString("descRequisito"));
                 r.sobrescreverId(rs.getInt("idRequisito"));
                 lstRequisitos.add(r);
             }

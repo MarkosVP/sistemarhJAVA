@@ -195,12 +195,12 @@ public class CadRequisito extends javax.swing.JInternalFrame {
         if(tblRequisito.getSelectedRows().length > 0){
             int selecionados = tblRequisito.getSelectedRows().length;
             for(int i = 0; i < selecionados; i++){
-                requisitos.remove(tblRequisito.getSelectedRows()[0]);
                 if(rd.apagar(requisitos.get(tblRequisito.getSelectedRows()[0]))){
                     JOptionPane.showMessageDialog(null, "Registro apagado com sucesso");
                 } else {
                     JOptionPane.showMessageDialog(null, "Não foi possível excluir o registro");
                 }
+                requisitos.remove(tblRequisito.getSelectedRows()[0]);
             }
             txtRequisito.setText("");
         } else {
@@ -211,22 +211,13 @@ public class CadRequisito extends javax.swing.JInternalFrame {
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         
         if(tblRequisito.getSelectedRows().length > 0){
-//                requisitos.get(tblRequisito.getSelectedRow()).setDescricao(txtRequisito.getText());
-//                System.out.println(txtRequisito.getText());
-//            tblRequisito.removeRowSelectionInterval(tblRequisito.getSelectedRow(), tblRequisito.getSelectedRow());
-            
             RequisitoDAO rd = new RequisitoDAO();
-            int selecionados = tblRequisito.getSelectedRows().length;
-            for(int i = 0; i < selecionados; i++){
                 
-                if(rd.alterar(requisitos.get(tblRequisito.getSelectedRows()[0]))){
-                    JOptionPane.showMessageDialog(null, "Registro alterado com sucesso");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Não foi possível alterar o registro");
-                }
+            if(rd.alterar(requisitos.get(tblRequisito.getSelectedRow()))){
+                JOptionPane.showMessageDialog(null, "Registro alterado com sucesso");
+            } else {
+                JOptionPane.showMessageDialog(null, "Não foi possível alterar o registro");
             }
-            txtRequisito.setText("");   
-            
         } else {
             JOptionPane.showMessageDialog(null, "Selecione um registro para alterar");
         }
