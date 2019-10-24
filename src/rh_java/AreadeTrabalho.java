@@ -22,6 +22,7 @@ public class AreadeTrabalho extends JDesktopPane
     private CadastroUsuario cadUsuario;
     private InstituicaoParceira InstPaceira;
     private CadCandidato CadCandidato;
+    private CadRequisito CadRequisito;
     
     public void AbrirContFuncionario(){
         if(contFunc == null)
@@ -81,5 +82,17 @@ public class AreadeTrabalho extends JDesktopPane
      
      public void fecharCadCandidato(){
          CadCandidato = null;
+     }
+     
+     public void abrirCadRequisitos(){
+         if(CadRequisito == null){
+             CadRequisito = new CadRequisito();
+             CadRequisito.setVisible(true);
+             add(CadRequisito);
+         }
+     }
+     
+     public void fecharCadRequisito(){
+         CadRequisito = null;
      }
 }

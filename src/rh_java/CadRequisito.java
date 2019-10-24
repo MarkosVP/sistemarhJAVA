@@ -184,7 +184,7 @@ public class CadRequisito extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if( getDesktopPane() instanceof AreadeTrabalho )
         {
-            ( (AreadeTrabalho)getDesktopPane() ).FecharContFuncionario();
+            ( (AreadeTrabalho)getDesktopPane() ).fecharCadRequisito();
         }
     }//GEN-LAST:event_formInternalFrameClosing
 
