@@ -15,15 +15,15 @@ import java.beans.PropertyChangeSupport;
 public class Requisito {
     
     private int id_requisito = 1;
-    private String desc_requisito;
+    private String descricao;
 
-    public Requisito(String desc_requisito) {
-        this.desc_requisito = desc_requisito;
+    public Requisito(String descricao) {
+        this.descricao = descricao;
         this.setId_requisito();
     }
     
     public static final String PROP_ID_REQUISITO = "id_requisito";
-    public static final String PROP_DESC_REQUISITO = "desc_requisito";
+    public static final String PROP_DESCRICAO = "descricao";
 
     /**
      * Get the value of id_requisito
@@ -39,8 +39,15 @@ public class Requisito {
      */
     public void setId_requisito() {
         int oldId_requisito = this.id_requisito;
-        this.id_requisito = this.id_requisito++;
+        this.id_requisito = ++this.id_requisito;
         propertyChangeSupport.firePropertyChange(PROP_ID_REQUISITO, oldId_requisito, id_requisito);
+    }
+    
+    // Sobrescreve Id quando já existe o id 
+    public void sobrescreverId(int id) {
+        int oldId = this.id_requisito;
+        this.id_requisito = id;
+        propertyChangeSupport.firePropertyChange(PROP_ID_REQUISITO, oldId, id);
     }
     
     /**
@@ -48,8 +55,8 @@ public class Requisito {
      *
      * @return the value of desc_requisito
      */
-    public String getDesc_requisito() {
-        return desc_requisito;
+    public String getDescricao() {
+        return descricao;
     }
 
     /**
@@ -57,10 +64,10 @@ public class Requisito {
      *
      * @param desc_requisito new value of desc_requisito
      */
-    public void setDesc_requisito(String desc_requisito) {
-        String oldDesc_requisito = this.desc_requisito;
-        this.desc_requisito = desc_requisito;
-        propertyChangeSupport.firePropertyChange(PROP_DESC_REQUISITO, oldDesc_requisito, desc_requisito);
+    public void setDescricao(String desc_requisito) {
+        String oldDescricao = this.descricao;
+        this.descricao = desc_requisito;
+        propertyChangeSupport.firePropertyChange(PROP_DESCRICAO, oldDescricao, descricao);
     }
 
     private transient final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
