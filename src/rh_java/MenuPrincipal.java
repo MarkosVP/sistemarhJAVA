@@ -33,6 +33,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         mnitCadastrarUsuario = new javax.swing.JMenuItem();
         mnitCadInstParceira = new javax.swing.JMenuItem();
         mniCadCandidato = new javax.swing.JMenuItem();
+        mniCadRequisito = new javax.swing.JMenuItem();
         mnVagas = new javax.swing.JMenu();
         mnitCadastrarVaga = new javax.swing.JMenuItem();
 
@@ -73,6 +74,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
         mnCadastro.add(mniCadCandidato);
+
+        mniCadRequisito.setText("Cadastrar Requisito");
+        mniCadRequisito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniCadRequisitoActionPerformed(evt);
+            }
+        });
+        mnCadastro.add(mniCadRequisito);
 
         mnbBarraMenu.add(mnCadastro);
 
@@ -126,9 +135,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_mnitCadInstParceiraActionPerformed
 
     private void mniCadCandidatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCadCandidatoActionPerformed
-        // TODO add your handling code here:
+        // Abrindo tela de Cadastro de Candidato
         AreadeTrabalho.abrirCadCandidato();
     }//GEN-LAST:event_mniCadCandidatoActionPerformed
+
+    private void mniCadRequisitoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCadRequisitoActionPerformed
+        // Abrindo Tela de Cadastro de requisitos
+        AreadeTrabalho.abrirCadRequisitos();
+    }//GEN-LAST:event_mniCadRequisitoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -146,6 +160,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu mnVagas;
     private javax.swing.JMenuBar mnbBarraMenu;
     private javax.swing.JMenuItem mniCadCandidato;
+    private javax.swing.JMenuItem mniCadRequisito;
     private javax.swing.JMenuItem mnitCadInstParceira;
     private javax.swing.JMenuItem mnitCadastrarUsuario;
     private javax.swing.JMenuItem mnitCadastrarVaga;
