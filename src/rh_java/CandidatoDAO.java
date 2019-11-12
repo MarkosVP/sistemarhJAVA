@@ -17,12 +17,12 @@ import org.jdesktop.observablecollections.ObservableCollections;
  *
  * @author otavi
  */
-public class FuncionarioDAO extends DAO<Funcionario> {
+public class CandidatoDAO extends DAO<Candidato> {
     
     @Override
-    public boolean inserir(Funcionario element) {
+    public boolean inserir(Candidato element) {
        try{
-            String query = "INSERT INTO funcionarios(nome, sobrenome, cpf, cep, logradouro, numero, bairro, cidade, estado, pais, ativo, id_candidato) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO candidatos(nome, sobrenome, cpf, cep, logradouro, numero, bairro, cidade, estado, pais, ativo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             
             PreparedStatement stmt = Conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             
@@ -37,7 +37,6 @@ public class FuncionarioDAO extends DAO<Funcionario> {
             stmt.setString(9, element.getEstado());
             stmt.setString(10, element.getPais());
             stmt.setInt(11, 1);
-            stmt.setInt(12, element.getCandidato().getId());
             
             int linha = stmt.executeUpdate();
             
@@ -55,9 +54,9 @@ public class FuncionarioDAO extends DAO<Funcionario> {
     }
 
     @Override
-    public boolean alterar(Funcionario element) {
+    public boolean alterar(Candidato element) {
         try{
-            String query = "UPDATE funcionarios SET nome = ?, sobrenome = ?, cpf = ?, cep = ?, logradouro = ?, numero = ?, bairro = ?, cidade = ?, estado = ?, pais = ?, ativo = 1, id_candidato = ? WHERE id_funcionario = ?";
+            String query = "UPDATE candidatos SET nome = ?, sobrenome = ?, cpf = ?, cep = ?, logradouro = ?, numero = ?, bairro = ?, cidade = ?, estado = ?, pais = ?, ativo = 1 WHERE id_funcionario = ?";
             
             PreparedStatement stmt = Conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             
@@ -72,7 +71,6 @@ public class FuncionarioDAO extends DAO<Funcionario> {
             stmt.setString(9, element.getEstado());
             stmt.setString(10, element.getPais());
             stmt.setInt(11, element.getId());
-            stmt.setInt(12, element.getCandidato().getId());
             
             int linha = stmt.executeUpdate();
             
@@ -89,9 +87,9 @@ public class FuncionarioDAO extends DAO<Funcionario> {
     }
 
     @Override
-    public boolean excluir(Funcionario element) {
+    public boolean excluir(Candidato element) {
         try{
-            String query = "UPDATE funcionarios SET ativo = 0 WHERE id_funcionario = ?";
+            String query = "UPDATE candidatos SET ativo = 0 WHERE id_candidato = ?";
             
             PreparedStatement stmt = Conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             
@@ -112,41 +110,39 @@ public class FuncionarioDAO extends DAO<Funcionario> {
     }
 
     @Override
-    public List<Funcionario> listar() {
-        List<Funcionario> listaFuncionario = new ArrayList<>();
-        listaFuncionario = ObservableCollections.observableList(listaFuncionario);
-        CandidatoDAO cd = new CandidatoDAO();
+    public List<Candidato> listar() {
+        List<Candidato> listaCandidato = new ArrayList<>();
+        listaCandidato = ObservableCollections.observableList(listaCandidato);
         
-        String sql = "SELECT * from funcionarios WHERE ativo = 1;";
+        String sql = "SELECT * from candidatos WHERE ativo = 1;";
         try{
             Statement stmt = Conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next()){
-                Funcionario f = new Funcionario();
-                f.setId(rs.getInt("id_funcionario"));
-                f.setNome(rs.getString("nome"));
-                f.setSobrenome(rs.getString("sobrenome"));
-                f.setCpf(rs.getString("cpf"));
-                f.setCep(rs.getString("cep"));
-                f.setLogradouro(rs.getString("logradouro"));
-                f.setNumero(rs.getInt("numero"));
-                f.setBairro(rs.getString("bairro"));
-                f.setCidade(rs.getString("cidade"));
-                f.setEstado(rs.getString("estado"));
-                f.setPais(rs.getString("pais"));
-                f.setCandidato(cd.getById(rs.getInt("id_candidato")));
-                listaFuncionario.add(f);
+                Candidato c = new Candidato();
+                c.setId(rs.getInt("id_candidato"));
+                c.setNome(rs.getString("nome"));
+                c.setSobrenome(rs.getString("sobrenome"));
+                c.setCpf(rs.getString("cpf"));
+                c.setCep(rs.getString("cep"));
+                c.setLogradouro(rs.getString("logradouro"));
+                c.setNumero(rs.getInt("numero"));
+                c.setBairro(rs.getString("bairro"));
+                c.setCidade(rs.getString("cidade"));
+                c.setEstado(rs.getString("estado"));
+                c.setPais(rs.getString("pais"));
+                listaCandidato.add(c);
             }
             
         }catch(SQLException e){
             System.out.println("Erro ao listar: " + e);
         }
-        return listaFuncionario;
+        return listaCandidato;
     }
     
-    public boolean buscar(Funcionario element) {
+    public boolean buscar(Candidato element) {
         try{
-            String query = "SELECT * FROM funcionarios WHERE cpf = ?";
+            String query = "SELECT * FROM candidatos WHERE cpf = ?";
             
             PreparedStatement stmt = Conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             
@@ -167,7 +163,7 @@ public class FuncionarioDAO extends DAO<Funcionario> {
     
     public boolean ativar(String cpf) {
         try{
-            String query = "UPDATE funcionarios SET ativo = 1 WHERE cpf = ?";
+            String query = "UPDATE candidatos SET ativo = 1 WHERE cpf = ?";
             
             PreparedStatement stmt = Conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             
@@ -187,11 +183,10 @@ public class FuncionarioDAO extends DAO<Funcionario> {
         return false;
     }
     
-    public Funcionario ativo(String cpf) {
-        Funcionario f = new Funcionario();
-        CandidatoDAO cd = new CandidatoDAO();
+    public Candidato ativo(String cpf) {
+        Candidato c = new Candidato();
         try{
-            String query = "SELECT * FROM funcionarios WHERE cpf = ?";
+            String query = "SELECT * FROM candidatos WHERE cpf = ?";
             
             PreparedStatement stmt = Conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             
@@ -199,26 +194,57 @@ public class FuncionarioDAO extends DAO<Funcionario> {
             
             ResultSet result = stmt.executeQuery();
             if(result.next()){
-                f.setId(result.getInt("id_funcionario"));
-                f.setNome(result.getString("nome"));
-                f.setSobrenome(result.getString("sobrenome"));
-                f.setCpf(result.getString("cpf"));
-                f.setCep(result.getString("cep"));
-                f.setLogradouro(result.getString("logradouro"));
-                f.setNumero(result.getInt("numero"));
-                f.setBairro(result.getString("bairro"));
-                f.setCidade(result.getString("cidade"));
-                f.setEstado(result.getString("estado"));
-                f.setPais(result.getString("pais"));
-                f.setCandidato(cd.getById(result.getInt("id_candidato")));
+                c.setId(result.getInt("id_candidato"));
+                c.setNome(result.getString("nome"));
+                c.setSobrenome(result.getString("sobrenome"));
+                c.setCpf(result.getString("cpf"));
+                c.setCep(result.getString("cep"));
+                c.setLogradouro(result.getString("logradouro"));
+                c.setNumero(result.getInt("numero"));
+                c.setBairro(result.getString("bairro"));
+                c.setCidade(result.getString("cidade"));
+                c.setEstado(result.getString("estado"));
+                c.setPais(result.getString("pais"));
             }
-            return f;
+            return c;
             
         }catch(SQLException e){
             System.out.println("Erro ao ativar: "+ e.getMessage());
         }
         
-        return f;
+        return c;
+    }
+    
+    public Candidato getById(int id) {
+        Candidato c = new Candidato();
+        try{
+            String query = "SELECT * FROM candidatos WHERE id_candidato = ?";
+            
+            PreparedStatement stmt = Conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            
+            stmt.setInt(1, id);
+            
+            ResultSet result = stmt.executeQuery();
+            if(result.next()){
+                c.setId(result.getInt("id_candidato"));
+                c.setNome(result.getString("nome"));
+                c.setSobrenome(result.getString("sobrenome"));
+                c.setCpf(result.getString("cpf"));
+                c.setCep(result.getString("cep"));
+                c.setLogradouro(result.getString("logradouro"));
+                c.setNumero(result.getInt("numero"));
+                c.setBairro(result.getString("bairro"));
+                c.setCidade(result.getString("cidade"));
+                c.setEstado(result.getString("estado"));
+                c.setPais(result.getString("pais"));
+            }
+            return c;
+            
+        }catch(SQLException e){
+            System.out.println("Erro ao ativar: "+ e.getMessage());
+        }
+        
+        return c;
     }
     
     /*public static void main(String args[]){

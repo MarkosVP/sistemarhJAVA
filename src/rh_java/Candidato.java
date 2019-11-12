@@ -13,23 +13,8 @@ import java.beans.PropertyChangeSupport;
  *
  * @author otavi
  */
-public class Funcionario {
+public class Candidato {
     
-        private Candidato Candidato;
-
-    public static final String PROP_CANDIDATO = "Candidato";
-
-    public Candidato getCandidato() {
-        return Candidato;
-    }
-
-    public void setCandidato(Candidato Candidato) {
-        Candidato oldCandidato = this.Candidato;
-        this.Candidato = Candidato;
-        propertyChangeSupport.firePropertyChange(PROP_CANDIDATO, oldCandidato, Candidato);
-    }
-
-
     private String cpf;
 
     public static final String PROP_CPF = "cpf";
