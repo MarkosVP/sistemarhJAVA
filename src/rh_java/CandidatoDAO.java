@@ -24,7 +24,7 @@ public class CandidatoDAO extends DAO<Candidato> {
        try{
             String query = "INSERT INTO candidatos(nome, sobrenome, cpf, cep, logradouro, numero, bairro, cidade, estado, pais, ativo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             
-            PreparedStatement stmt = Conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             
             stmt.setString(1, element.getNome());
             stmt.setString(2, element.getSobrenome());
@@ -58,7 +58,7 @@ public class CandidatoDAO extends DAO<Candidato> {
         try{
             String query = "UPDATE candidatos SET nome = ?, sobrenome = ?, cpf = ?, cep = ?, logradouro = ?, numero = ?, bairro = ?, cidade = ?, estado = ?, pais = ?, ativo = 1 WHERE id_funcionario = ?";
             
-            PreparedStatement stmt = Conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             
             stmt.setString(1, element.getNome());
             stmt.setString(2, element.getSobrenome());
@@ -87,11 +87,11 @@ public class CandidatoDAO extends DAO<Candidato> {
     }
 
     @Override
-    public boolean excluir(Candidato element) {
+    public boolean apagar(Candidato element) {
         try{
             String query = "UPDATE candidatos SET ativo = 0 WHERE id_candidato = ?";
             
-            PreparedStatement stmt = Conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             
             stmt.setInt(1, element.getId());
             
@@ -116,7 +116,7 @@ public class CandidatoDAO extends DAO<Candidato> {
         
         String sql = "SELECT * from candidatos WHERE ativo = 1;";
         try{
-            Statement stmt = Conn.createStatement();
+            Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next()){
                 Candidato c = new Candidato();
@@ -144,7 +144,7 @@ public class CandidatoDAO extends DAO<Candidato> {
         try{
             String query = "SELECT * FROM candidatos WHERE cpf = ?";
             
-            PreparedStatement stmt = Conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             
             stmt.setString(1, element.getCpf());
             
@@ -165,7 +165,7 @@ public class CandidatoDAO extends DAO<Candidato> {
         try{
             String query = "UPDATE candidatos SET ativo = 1 WHERE cpf = ?";
             
-            PreparedStatement stmt = Conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             
             stmt.setString(1, cpf);
             
@@ -188,7 +188,7 @@ public class CandidatoDAO extends DAO<Candidato> {
         try{
             String query = "SELECT * FROM candidatos WHERE cpf = ?";
             
-            PreparedStatement stmt = Conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             
             stmt.setString(1, cpf);
             
@@ -220,7 +220,7 @@ public class CandidatoDAO extends DAO<Candidato> {
         try{
             String query = "SELECT * FROM candidatos WHERE id_candidato = ?";
             
-            PreparedStatement stmt = Conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             
             stmt.setInt(1, id);
             
@@ -259,5 +259,6 @@ public class CandidatoDAO extends DAO<Candidato> {
         List<Funcionario> lista = fd.lista();
         System.out.println(lista);
     }*/
+
     
 }
