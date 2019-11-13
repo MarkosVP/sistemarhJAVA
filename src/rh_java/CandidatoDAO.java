@@ -22,7 +22,7 @@ public class CandidatoDAO extends DAO<Candidato> {
     @Override
     public boolean inserir(Candidato element) {
        try{
-            String query = "INSERT INTO candidatos(nome, sobrenome, cpf, cep, logradouro, numero, bairro, cidade, estado, pais, ativo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO candidatos(nome, sobrenome, cpf, cep, logradouro, numero, bairro, cidade, estado, pais) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             
             PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             
@@ -36,7 +36,6 @@ public class CandidatoDAO extends DAO<Candidato> {
             stmt.setString(8, element.getCidade());
             stmt.setString(9, element.getEstado());
             stmt.setString(10, element.getPais());
-            stmt.setInt(11, 1);
             
             int linha = stmt.executeUpdate();
             
@@ -56,7 +55,7 @@ public class CandidatoDAO extends DAO<Candidato> {
     @Override
     public boolean alterar(Candidato element) {
         try{
-            String query = "UPDATE candidatos SET nome = ?, sobrenome = ?, cpf = ?, cep = ?, logradouro = ?, numero = ?, bairro = ?, cidade = ?, estado = ?, pais = ?, ativo = 1 WHERE id_funcionario = ?";
+            String query = "UPDATE candidatos SET nome = ?, sobrenome = ?, cpf = ?, cep = ?, logradouro = ?, numero = ?, bairro = ?, cidade = ?, estado = ?, pais = ? WHERE id_funcionario = ?";
             
             PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             
@@ -89,7 +88,7 @@ public class CandidatoDAO extends DAO<Candidato> {
     @Override
     public boolean apagar(Candidato element) {
         try{
-            String query = "UPDATE candidatos SET ativo = 0 WHERE id_candidato = ?";
+            String query = "DELETE FROM candidatos WHERE id_candidato = ?";
             
             PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             
@@ -114,7 +113,7 @@ public class CandidatoDAO extends DAO<Candidato> {
         List<Candidato> listaCandidato = new ArrayList<>();
         listaCandidato = ObservableCollections.observableList(listaCandidato);
         
-        String sql = "SELECT * from candidatos WHERE ativo = 1;";
+        String sql = "SELECT * from candidatos";
         try{
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
@@ -158,28 +157,6 @@ public class CandidatoDAO extends DAO<Candidato> {
             System.out.println("Erro ao ativar: "+ e.getMessage());
         }
         
-        return false;
-    }
-    
-    public boolean ativar(String cpf) {
-        try{
-            String query = "UPDATE candidatos SET ativo = 1 WHERE cpf = ?";
-            
-            PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            
-            stmt.setString(1, cpf);
-            
-            int linha = stmt.executeUpdate();
-            
-            if(linha == 1) {
-                ResultSet rs = stmt.getGeneratedKeys();
-                rs.next();
-                return true;
-            }
-            
-        }catch(SQLException e){
-            System.out.println("Erro ao ativar: "+ e.getMessage());
-        }
         return false;
     }
     

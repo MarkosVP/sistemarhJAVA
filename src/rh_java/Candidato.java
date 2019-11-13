@@ -8,6 +8,7 @@ package rh_java;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.Objects;
 
 /**
  *
@@ -302,5 +303,77 @@ private String nome;
         this.id = id;
         propertyChangeSupport.firePropertyChange(PROP_ID, oldId, id);
     }
+
+    @Override
+    public String toString() {
+        return  nome;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 31 * hash + Objects.hashCode(this.cpf);
+        hash = 31 * hash + Objects.hashCode(this.pais);
+        hash = 31 * hash + Objects.hashCode(this.cidade);
+        hash = 31 * hash + Objects.hashCode(this.estado);
+        hash = 31 * hash + Objects.hashCode(this.bairro);
+        hash = 31 * hash + this.numero;
+        hash = 31 * hash + Objects.hashCode(this.logradouro);
+        hash = 31 * hash + Objects.hashCode(this.cep);
+        hash = 31 * hash + Objects.hashCode(this.sobrenome);
+        hash = 31 * hash + Objects.hashCode(this.nome);
+        hash = 31 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Candidato other = (Candidato) obj;
+        if (this.numero != other.numero) {
+            return false;
+        }
+        if (!Objects.equals(this.cpf, other.cpf)) {
+            return false;
+        }
+        if (!Objects.equals(this.pais, other.pais)) {
+            return false;
+        }
+        if (!Objects.equals(this.cidade, other.cidade)) {
+            return false;
+        }
+        if (!Objects.equals(this.estado, other.estado)) {
+            return false;
+        }
+        if (!Objects.equals(this.bairro, other.bairro)) {
+            return false;
+        }
+        if (!Objects.equals(this.logradouro, other.logradouro)) {
+            return false;
+        }
+        if (!Objects.equals(this.cep, other.cep)) {
+            return false;
+        }
+        if (!Objects.equals(this.sobrenome, other.sobrenome)) {
+            return false;
+        }
+        if (!Objects.equals(this.nome, other.nome)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 
 }

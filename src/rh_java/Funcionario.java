@@ -15,19 +15,20 @@ import java.beans.PropertyChangeSupport;
  */
 public class Funcionario {
     
-        private Candidato Candidato;
+        private Candidato candidato;
 
-    public static final String PROP_CANDIDATO = "Candidato";
+    public static final String PROP_CANDIDATO = "candidato";
 
     public Candidato getCandidato() {
-        return Candidato;
+        return candidato;
     }
 
-    public void setCandidato(Candidato Candidato) {
-        Candidato oldCandidato = this.Candidato;
-        this.Candidato = Candidato;
-        propertyChangeSupport.firePropertyChange(PROP_CANDIDATO, oldCandidato, Candidato);
+    public void setCandidato(Candidato candidato) {
+        Candidato oldCandidato = this.candidato;
+        this.candidato = candidato;
+        propertyChangeSupport.firePropertyChange(PROP_CANDIDATO, oldCandidato, candidato);
     }
+
 
 
     private String cpf;
