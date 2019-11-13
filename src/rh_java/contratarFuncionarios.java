@@ -70,7 +70,7 @@ public class contratarFuncionarios extends javax.swing.JInternalFrame {
         cb.setColumnName("Estado");
         cb = tb.addColumnBinding(BeanProperty.create("pais"));
         cb.setColumnName("País");
-        cb = tb.addColumnBinding(BeanProperty.create("Candidato"));
+        cb = tb.addColumnBinding(BeanProperty.create("candidato"));
         cb.setColumnName("Candidato");
         
         bg.addBinding(tb);
