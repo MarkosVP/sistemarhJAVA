@@ -22,6 +22,10 @@ public class Requisito {
         this.setId_requisito();
     }
     
+    public String toString(){
+        return this.descricao;
+    }
+    
     public static final String PROP_ID_REQUISITO = "id_requisito";
     public static final String PROP_DESCRICAO = "descricao";
 

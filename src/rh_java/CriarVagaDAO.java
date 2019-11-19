@@ -30,7 +30,7 @@ public class CriarVagaDAO extends DAO<Vaga>{
             
             PreparedStatement stmt = conn.prepareStatement(sql,
                     Statement.RETURN_GENERATED_KEYS);
-            stmt.setInt(1, element.getRequisitos());
+            stmt.setInt(1, element.getRequisito().getId_requisito());
             stmt.setString(2, element.getCargo());
             stmt.setString(3, element.getSubstituicao());
             stmt.setString(4, element.getExtraOrcamento());
@@ -77,7 +77,7 @@ public class CriarVagaDAO extends DAO<Vaga>{
             
             PreparedStatement stmt = conn.prepareStatement(sql,
                     Statement.RETURN_GENERATED_KEYS);
-            stmt.setInt(1, element.getRequisitos());
+            stmt.setInt(1, element.getRequisito().getId_requisito());
             stmt.setString(2, element.getCargo());
             stmt.setString(3, element.getSubstituicao());
             stmt.setString(4, element.getExtraOrcamento());
@@ -118,7 +118,7 @@ public class CriarVagaDAO extends DAO<Vaga>{
     public List<Vaga> listar() {
         List<Vaga> lstVagas = new ArrayList<>();
         lstVagas = ObservableCollections.observableList(lstVagas);
-        
+        RequisitoDAO rq = new RequisitoDAO();
         String sql = "SELECT * FROM vaga;";
         try{
             Statement stmt = conn.createStatement();            
@@ -127,7 +127,7 @@ public class CriarVagaDAO extends DAO<Vaga>{
             while(rs.next()==true){
                 Vaga v = new Vaga();
                 v.setIdVaga(rs.getInt("id"));
-                v.setRequisitos(rs.getInt("id_requisito"));
+                v.setRequisito(rq.getById(rs.getInt("id_requisito")));
                 v.setCargo(rs.getString("nm_cargo"));
                 v.setSubstituicao(rs.getString("substituicao"));
                 v.setExtraOrcamento(rs.getString("extra_orcamento"));
@@ -145,5 +145,5 @@ public class CriarVagaDAO extends DAO<Vaga>{
         }
 
         return lstVagas;
-    }
+    }    
 }
