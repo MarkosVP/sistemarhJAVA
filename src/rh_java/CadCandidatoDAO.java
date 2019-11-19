@@ -5,6 +5,7 @@
  */
 package rh_java;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,7 +21,18 @@ import org.jdesktop.observablecollections.ObservableCollections;
  * @author marco
  */
 public class CadCandidatoDAO extends DAO<Candidato>{
-
+    
+    /**
+     * Método construtor Unificadora de Transações
+     * @param c
+     */
+    public CadCandidatoDAO(Connection c){
+        super(c);
+    }
+    public CadCandidatoDAO(){
+        
+    }
+    
     /**
      * Função que Insere um Candidato ao Banco
      * 
@@ -30,6 +42,9 @@ public class CadCandidatoDAO extends DAO<Candidato>{
     @Override
     public boolean inserir(Candidato element) {
         try{
+            //Desativando AutoCommit
+            conn.setAutoCommit(false);
+            
             //Gerando Query
             String qry = "INSERT INTO candidatos("
                     + "nome, sobrenome, cpf,"
@@ -63,11 +78,19 @@ public class CadCandidatoDAO extends DAO<Candidato>{
                 element.setId(rs.getInt(1));
                 System.out.printf("%d", element.getID());
                 
+                //Salva dados e encerra conexão
+                conn.commit();
                 return true;
             }
         }
         catch(SQLException ex){
             System.out.println("Erro ao inserir: "+ ex.getMessage());
+        }
+        
+        try{
+            conn.rollback();
+        }catch(SQLException ex){
+            System.out.printf("Erro na operação de Inserção e falha ao cancelar!");
         }
         return false;
     }

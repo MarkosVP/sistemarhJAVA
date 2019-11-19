@@ -41,4 +41,7 @@ public abstract class DAO<E> {
         }
     }
 
+    public DAO(Connection c){
+        conn = c;
+    }
 }
