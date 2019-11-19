@@ -30,16 +30,15 @@ public class CriarVaga extends javax.swing.JInternalFrame {
      * Creates new form CriarVaga
      */
     public CriarVaga() {
-        /* lstVagas = new ArrayList<>();
-        lstVagas = ObservableCollections.observableList(lstVagas);*/
-        
-        lstRequisitos = new ArrayList<>();
-        lstRequisitos = ObservableCollections.observableList(lstRequisitos);
-        lstRequisitos.add(new Requisito("teste"));
+
+        RequisitoDAO rq = new RequisitoDAO();       
+        lstRequisitos = rq.listar();
+               
+        System.out.println(lstRequisitos);        
         
         CriarVagaDAO cv = new CriarVagaDAO();
         lstVagas = cv.listar();
-            
+        System.out.println(lstVagas);   
         initComponents();
         
         BindingGroup bg = new BindingGroup();
@@ -67,8 +66,8 @@ public class CriarVaga extends javax.swing.JInternalFrame {
         cb = tb.addColumnBinding(BeanProperty.create("motorista"));
         cb.setColumnName("Motorista");
         
-        cb = tb.addColumnBinding(BeanProperty.create("requisitos"));
-        cb.setColumnName("Requisitos");
+        cb = tb.addColumnBinding(BeanProperty.create("requisito"));
+        cb.setColumnName("Requisito");
         
         cb = tb.addColumnBinding(BeanProperty.create("horario_trabalho"));
         cb.setColumnName("Horario Trabalho");
@@ -82,9 +81,9 @@ public class CriarVaga extends javax.swing.JInternalFrame {
         
         bg.addBinding(tb);
 
-        //JComboBoxBinding cbb = SwingBindings.createJComboBoxBinding(AutoBinding.UpdateStrategy.READ_WRITE, lstRequisitos, cbxSubstituicao);
+        JComboBoxBinding cbb = SwingBindings.createJComboBoxBinding(AutoBinding.UpdateStrategy.READ_WRITE, lstRequisitos, cbxRequisitos);
         
-        //bg.addBinding(cbb);
+        bg.addBinding(cbb);
         
         Binding b = Bindings.createAutoBinding(AutoBinding.UpdateStrategy.READ_WRITE, 
                 cbxSubstituicao, BeanProperty.create("selectedItem"),
@@ -123,12 +122,7 @@ public class CriarVaga extends javax.swing.JInternalFrame {
                 tbVagas, BeanProperty.create("selectedElement.motorista")
                 );
         bg.addBinding(b);
-        
-         b = Bindings.createAutoBinding(
-                AutoBinding.UpdateStrategy.READ_WRITE,
-                tbVagas, BeanProperty.create("selectedElement.requisitos"),
-                txtRequisitos, BeanProperty.create("text"));
-        bg.addBinding(b);
+                
         
         b = Bindings.createAutoBinding(
                 AutoBinding.UpdateStrategy.READ_WRITE,
@@ -153,6 +147,12 @@ public class CriarVaga extends javax.swing.JInternalFrame {
                 tbVagas, BeanProperty.create("selectedElement.consideracoes"),
                 txtaConsideracoes, BeanProperty.create("text"));
         bg.addBinding(b);
+        
+        b = Bindings.createAutoBinding(
+                AutoBinding.UpdateStrategy.READ_WRITE,
+                tbVagas, BeanProperty.create("selectedElement.requisito"),
+                cbxRequisitos, BeanProperty.create("selectedItem"));
+         bg.addBinding(b);
         
         
         
@@ -188,8 +188,7 @@ public class CriarVaga extends javax.swing.JInternalFrame {
         lblCusto = new javax.swing.JLabel();
         txtHorarioTrabalho = new javax.swing.JTextField();
         txtCusto = new javax.swing.JTextField();
-        txtRequisitos = new javax.swing.JTextField();
-        cbxRequisitos1 = new javax.swing.JComboBox<>();
+        cbxRequisitos = new javax.swing.JComboBox<>();
         cbxSexo = new javax.swing.JComboBox<>();
         cbxInternet = new javax.swing.JComboBox<>();
         cbxMotorista = new javax.swing.JComboBox<>();
@@ -262,7 +261,6 @@ public class CriarVaga extends javax.swing.JInternalFrame {
                 .addGap(33, 33, 33)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 0, 0)
                         .addComponent(lblCargo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -334,22 +332,17 @@ public class CriarVaga extends javax.swing.JInternalFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(lblRequisitos)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtRequisitos))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(lblSexo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cbxSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addGap(83, 83, 83)
-                        .addComponent(cbxRequisitos1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblRequisitos)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbxRequisitos, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(lblSexo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbxSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblInternet)
                     .addComponent(lblHorarioTrabalhp))
@@ -357,7 +350,7 @@ public class CriarVaga extends javax.swing.JInternalFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(cbxInternet, 0, 139, Short.MAX_VALUE)
                     .addComponent(txtHorarioTrabalho))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(lblCusto)
@@ -387,10 +380,8 @@ public class CriarVaga extends javax.swing.JInternalFrame {
                     .addComponent(lblCusto)
                     .addComponent(txtHorarioTrabalho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtCusto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtRequisitos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(1, 1, 1)
-                .addComponent(cbxRequisitos1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+                    .addComponent(cbxRequisitos, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         lblConsideracoes.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -527,11 +518,11 @@ public class CriarVaga extends javax.swing.JInternalFrame {
     private void btnCriarVagaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarVagaActionPerformed
         
         Vaga v = new Vaga();
-        
+        RequisitoDAO rq = new RequisitoDAO();
         if(tbVagas.getSelectedRows().length==0){
             v.setCargo(txtCargo.getText());
                         
-            v.setRequisitos(Integer.parseInt(txtRequisitos.getText()));
+            
             v.setHorario_trabalho(txtHorarioTrabalho.getText());
             v.setCusto(Float.parseFloat(txtCusto.getText()));
             v.setConsideracoes(txtaConsideracoes.getText());
@@ -541,7 +532,7 @@ public class CriarVaga extends javax.swing.JInternalFrame {
             txtaConsideracoes.setText("");
             txtCargo.setText("");
                         
-            txtRequisitos.setText("");
+            
             txtHorarioTrabalho.setText("");
             txtCusto.setText("");
         }else{
@@ -605,7 +596,7 @@ public class CriarVaga extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> cbxExtraOrcamento;
     private javax.swing.JComboBox<String> cbxInternet;
     private javax.swing.JComboBox<String> cbxMotorista;
-    private javax.swing.JComboBox<String> cbxRequisitos1;
+    private javax.swing.JComboBox<String> cbxRequisitos;
     private javax.swing.JComboBox<String> cbxSexo;
     private javax.swing.JComboBox<String> cbxSubstituicao;
     private javax.swing.JPanel jPanel1;
@@ -629,7 +620,6 @@ public class CriarVaga extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtCargo;
     private javax.swing.JTextField txtCusto;
     private javax.swing.JTextField txtHorarioTrabalho;
-    private javax.swing.JTextField txtRequisitos;
     private javax.swing.JTextArea txtaConsideracoes;
     // End of variables declaration//GEN-END:variables
 }

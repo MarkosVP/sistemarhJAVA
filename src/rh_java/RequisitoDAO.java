@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import org.jdesktop.observablecollections.ObservableCollections;
 
@@ -15,7 +15,7 @@ public class RequisitoDAO extends DAO<Requisito> {
     
     @Override
     public boolean inserir(Requisito element) {
-       String comando = "INSERT INTO requisitos (descRequisito) VALUES (?)";
+       String comando = "INSERT INTO requisito (nm_requisito) VALUES (?)";
        try{
             PreparedStatement stmt = conn.prepareStatement(comando,Statement.RETURN_GENERATED_KEYS);
             
@@ -36,7 +36,7 @@ public class RequisitoDAO extends DAO<Requisito> {
 
     @Override
     public boolean apagar(Requisito element) {
-        String comando = "DELETE FROM requisitos WHERE idRequisito = ?";
+        String comando = "DELETE FROM requisito WHERE id = ?";
        try{
             PreparedStatement stmt = conn.prepareStatement(comando);
             
@@ -51,7 +51,7 @@ public class RequisitoDAO extends DAO<Requisito> {
     }
     @Override
     public boolean alterar(Requisito element) {
-        String sql = "UPDATE requisitos SET descRequisito = ? WHERE idRequisito = ?";
+        String sql = "UPDATE requisito SET nm_requisito = ? WHERE id = ?";
         try{
           
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -72,16 +72,16 @@ public class RequisitoDAO extends DAO<Requisito> {
     
     @Override
     public List<Requisito> listar() {
-        List<Requisito> lstRequisitos = new LinkedList<>();
+        List<Requisito> lstRequisitos = new ArrayList<>();
         lstRequisitos = ObservableCollections.observableList(lstRequisitos);
         
-        String sql = "SELECT * from requisitos ORDER BY idRequisito;";
+        String sql = "SELECT * from requisito ORDER BY id;";
         try{
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next()){
-                Requisito r = new Requisito(rs.getString("descRequisito"));
-                r.sobrescreverId(rs.getInt("idRequisito"));
+                Requisito r = new Requisito(rs.getString("nm_requisito"));
+                r.sobrescreverId(rs.getInt("id"));
                 lstRequisitos.add(r);
             }
             
@@ -89,5 +89,26 @@ public class RequisitoDAO extends DAO<Requisito> {
             System.out.println("erro ao listar"+ e.getMessage());
         }
         return lstRequisitos;
-    }     
+    }
+    
+    public Requisito getById(int id){
+        Requisito r = null;
+        String sql = "SELECT * FROM requisito WHERE id = "+id;
+        
+        try{
+            Statement stmt = conn.createStatement();
+            
+            ResultSet rq = stmt.executeQuery(sql);
+            
+            while(rq.next()){
+                r = new Requisito(rq.getString("nm_requisito"));                                              
+            }
+        }catch(SQLException e){
+            
+            System.out.println("é erro");
+            
+        }
+        
+        return r;
+    }
 }

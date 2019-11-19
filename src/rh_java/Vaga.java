@@ -21,11 +21,23 @@ public class Vaga {
     public static final String PROP_SEXO = "sexo";
     public static final String PROP_INTERNET = "internet";
     public static final String PROP_MOTORISTA = "motorista";
-    public static final String PROP_REQUISITOS = "requisitos";
     public static final String PROP_HORARIO_TRABALHO = "horario_trabalho";
     public static final String PROP_CUSTO = "custo";
     public static final String PROP_CONSIDERACOES = "consideracoes";
     
+    private Requisito requisito;
+
+    public static final String PROP_RESTAURANTE = "requisito";
+
+    public Requisito getRequisito() {
+        return requisito;
+    }
+
+    public void setRequisito(Requisito requisito) {
+        Requisito oldRequisito = this.requisito;
+        this.requisito = requisito;
+        propertyChangeSupport.firePropertyChange(PROP_RESTAURANTE, oldRequisito, requisito);
+    }
     private String cargo;
     public String getCargo() {
         return cargo;
@@ -115,20 +127,7 @@ public class Vaga {
         propertyChangeSupport.firePropertyChange(PROP_MOTORISTA, oldMotorista, motorista);
     }
 
-    private Integer requisitos;
-
     
-
-    public Integer getRequisitos() {
-        return requisitos;
-    }
-
-    public void setRequisitos(Integer requisitos) {
-        Integer oldRequisitos = this.requisitos;
-        this.requisitos = requisitos;
-        propertyChangeSupport.firePropertyChange(PROP_REQUISITOS, oldRequisitos, requisitos);
-    }
-
     private String horario_trabalho;
 
     
