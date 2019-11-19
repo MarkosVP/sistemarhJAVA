@@ -1,5 +1,7 @@
-package rh_java;
+    package rh_java;
 
+import java.sql.Connection;    
+import static java.sql.Connection.TRANSACTION_NONE; 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -7,15 +9,25 @@ import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import java.sql.Savepoint;
 import org.jdesktop.observablecollections.ObservableCollections;
 
 public class UsuarioDAO extends DAO<Usuario>{
 
     @Override
     public boolean inserir(Usuario element) {
+       Savepoint sp;
+        try{
+            conn.setAutoCommit(false);
+            sp = conn.setSavepoint("inicio");
+
+        }catch(SQLException e){
+            System.out.println("erro ao desligar autocommit");
+            return false;
+        }
+        
        String comando = "INSERT INTO usuario (nome_usuario,cpf_usuario,email_usuario,tel_usuario,senha_usuario) VALUES (?,?,?,?,?)";
        try{
-            
             PreparedStatement stmt = conn.prepareStatement(comando,Statement.RETURN_GENERATED_KEYS);
             
             stmt.setString(1, element.getNomeUsuario());
@@ -28,12 +40,20 @@ public class UsuarioDAO extends DAO<Usuario>{
                 ResultSet rs = stmt.getGeneratedKeys();
                 rs.next();
                 element.setId(rs.getInt(1));
+                conn.commit();
                 return true;
             }
             
         }catch(SQLException e){
             System.out.println("erro ao inserir: "+ e.getMessage());
             JOptionPane.showMessageDialog(null, "Erro ao inserir\n");
+        }
+       try{
+            System.out.println("rollback");
+            conn.rollback(sp);
+            
+        }catch(SQLException e){
+            System.out.println("erro no rollback");
         }
         return false;
     }

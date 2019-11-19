@@ -396,11 +396,8 @@ public class CadastroUsuario extends javax.swing.JInternalFrame {
             System.out.println("Há campos obrigatórios em branco");
             String[] opcoes = {"Fechar"};
             JOptionPane.showOptionDialog(null, "Há campos obrigatórios em branco", "Erro!", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, opcoes, opcoes[0]);
-        }
-        else{
-      
-            if(tbResult.getSelectedRows().length==0)
-            {
+        }else    
+            if(tbResult.getSelectedRows().length==0){
                 user.getId();
                 user.setCpfUsuario(lblCpf.getText()); 
                 user.setEmailUsuario(lblEmail.getText());
@@ -408,9 +405,7 @@ public class CadastroUsuario extends javax.swing.JInternalFrame {
                 user.setTelefoneUsuario(lblPhone.getText());
                 user.setSenhaUsuario(lblPassword.getText());
             }
-            lstUsuarios.add(user);  
-            
-        }                         
+            lstUsuarios.add(user);                               
     }//GEN-LAST:event_btInserirActionPerformed
 
     private void lblPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblPasswordActionPerformed
